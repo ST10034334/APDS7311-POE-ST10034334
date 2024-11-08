@@ -29,9 +29,12 @@ jobs:
     resource_class: small
     steps:
       - checkout
+      - run: |
+        # Ensure find is available
+        apt-get update && apt-get install -y findutils
       - run: find .
       - attach_workspace:
-          at: ~/workspace
+        at: ~/workspace
       - run: | 
           SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
           echo "Sonar branch value is: " $SONAR_BRANCH
