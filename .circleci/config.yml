@@ -21,22 +21,14 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
-
   sonarqube:
     working_directory: ~/build
     docker:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - checkout  # Ensure your code is checked out before any operations
-      - run:
-          name: "Install findutils"
-          command: |
-            apt-get update && sudo apt-get install -y findutils
-      - run:
-          name: "Run find command"
-          command: find .
-      - attach_workspace: 
+      - run: find .
+      - attach_workspace:
           at: ~/workspace
       - run: | 
           SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
