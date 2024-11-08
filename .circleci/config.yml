@@ -29,8 +29,7 @@ jobs:
     resource_class: small
     steps:
       - run: find .
-      - attach_workspace:
-          at: ~/workspace
+      - attach_workspace: ~/workspace
       - run: | 
           SONAR_BRANCH="${CIRCLE_BRANCH:-master}"
           echo "Sonar branch value is: " $SONAR_BRANCH
