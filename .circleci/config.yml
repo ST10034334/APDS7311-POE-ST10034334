@@ -19,6 +19,10 @@ jobs:
       # Checkout code so that `find` can access your files
       - checkout
       - run:
+          name: "Install findutils"
+          command: |
+            apt-get update && apt-get install -y findutils
+      - run:
           name: "Inspect environment"
           command: |
             echo "Inspecting environment:"
@@ -27,6 +31,8 @@ jobs:
             env
             echo "List of files in /usr/bin"
             ls /usr/bin
+            echo "List of files in the current directory"
+            find .  # Now find should work as it's installed
 
       - attach_workspace:
           at: ~/workspace
