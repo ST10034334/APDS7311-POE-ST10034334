@@ -18,17 +18,12 @@ jobs:
     steps:
       # Checkout code so that `find` can access your files
       - checkout
-
-      # Install find command using `apk` (for Alpine-based images)
       - run:
-          name: "Install find command"
-          command: |
-            apk add --no-cache findutils
-
-      # Run the find command to list all files, specifically in PART 3 folder
-      - run:
-          name: "List files in PART 3"
-          command: "find ./PART\ 3"
+         name: "Check available commands"
+         command: |
+           which find
+           which apk
+           which apt-get
 
       - attach_workspace:
           at: ~/workspace
