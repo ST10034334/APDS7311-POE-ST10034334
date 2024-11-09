@@ -27,7 +27,7 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - run: ls "./PART 3"
+      - run: ls "PART 3"
       - attach_workspace:
           at: ~/workspace
       - run: | 
