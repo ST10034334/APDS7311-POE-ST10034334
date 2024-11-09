@@ -13,16 +13,11 @@ jobs:
   sonarqube:
     working_directory: ~/build
     docker:
-      - image: sonarsource/sonar-scanner-cli
+      - image: circleci/python:3.8  # Using a more feature-rich image
     resource_class: small
     steps:
       # Checkout code so that `find` can access your files
       - checkout
-      - run:
-          name: "Install findutils"
-          command: |
-            # Install findutils using apk
-            apk update && apk add findutils
       - run:
           name: "Inspect environment"
           command: |
@@ -33,7 +28,7 @@ jobs:
             echo "List of files in /usr/bin"
             ls /usr/bin
             echo "List of files in the current directory"
-            find .  # Now find should work as it's installed
+            find .  # Now find should work, since the Python image includes find
 
       - attach_workspace:
           at: ~/workspace
