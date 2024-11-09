@@ -19,11 +19,14 @@ jobs:
       # Checkout code so that `find` can access your files
       - checkout
       - run:
-         name: "Check available commands"
-         command: |
-           which find
-           which apk
-           which apt-get
+          name: "Inspect environment"
+          command: |
+            echo "Inspecting environment:"
+            echo "Shell: $SHELL"
+            echo "Environment Variables:"
+            env
+            echo "List of files in /usr/bin"
+            ls /usr/bin
 
       - attach_workspace:
           at: ~/workspace
