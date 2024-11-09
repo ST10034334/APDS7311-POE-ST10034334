@@ -29,6 +29,12 @@ export const validName = new RegExp(
    `^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&^\\(\\)])[A-Za-z\\d@$!%*?&^()]{8,20}$`
  );
 
+ export const validRole = new RegExp(
+  //Microsoft (2022) demonstrates how to create a RegEx pattern:
+  //Requires exactly 'Employee', 'Customer', or 'Admin' (only 3 roles are available).
+  `^(Employee|Customer|Admin)$`
+ );
+
  export const validCurrency = new RegExp(
   //Microsoft (2022) demonstrates how to create a RegEx pattern:
   //Requires one or more letters (both uppercase and lowercase) and spaces (for currency name); a space between the currency name and brackets; 

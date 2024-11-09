@@ -245,13 +245,6 @@ async function handleSubmission(paymentID) {
 };
 
 
-//handleVerification() function shows the next required fields if the amount, currency, and provider are valid.
-//Watson (2022) demonstrates how to work with React Select.
-const handleDeletion = (e) => {
-  e.preventDefault(); //Prevents default form submssion behaviour.
-
-};
-
     return (
 <body> 
 
@@ -392,16 +385,7 @@ const handleDeletion = (e) => {
            </button>
            )}
            </td>
-
-              {/* Only allows payment deletion if user has the role of 'Admin' */}
-              {role === 'Admin' && (
-                <td style={{ textAlign: 'center', padding: '12px 15px' }}>
-                <button onClick={handleDeletion} className="btn btn-secondary btn-sm">
-                 Delete
-                </button>
-                </td>
-              )}
-            </tr>
+          </tr>
           ))}
         </tbody>
       </table>

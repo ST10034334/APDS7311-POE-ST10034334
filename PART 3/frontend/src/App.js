@@ -11,6 +11,7 @@ import Error from './components/Error';
 import PaymentCreation from './components/PaymentCreation';
 import MyPayments from './components/MyPayments';
 import UserManagementHub from './components/UserManagmentHub';
+import CreateUser from './components/CreateUser';
 import { useEffect, useState } from 'react';
 
 
@@ -41,6 +42,7 @@ function App() {
         <Route path='/portal' element={<PaymentsPortal triggerError={triggerError}/>}/>
         <Route path='/myPayments' element={<MyPayments triggerError={triggerError}/>}/>
         <Route path='/userManagement' element={<UserManagementHub triggerError={triggerError}/>}/>
+        <Route path='/createUser' element={<CreateUser triggerError={triggerError}/>}/>
         <Route path='/paymentProcessing' element={<PaymentCreation/>}/>
         </Routes>
     </div>
