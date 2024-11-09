@@ -22,12 +22,12 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
   sonarqube:
-    working_directory: ~/build
+    working_directory: PART 3
     docker:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - run: ls "PART 3"
+      - run: ls 
       - attach_workspace:
           at: ~/workspace
       - run: | 
