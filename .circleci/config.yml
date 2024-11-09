@@ -22,7 +22,7 @@ jobs:
           name: "Say hello"
           command: "echo Hello, World!"
   sonarqube:
-    working_directory: "PART 3"
+    working_directory: "PART 3/backend"
     docker:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
