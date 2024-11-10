@@ -13,7 +13,7 @@ const router = express.Router();
 const store = new ExpressBrute.MemoryStore();
 const bruteforce = new ExpressBrute(store, {
 
-    freeRetries: 5, //Number of allowed attempts before blocking.
+    freeRetries: 30, //Number of allowed attempts before blocking.
     minTimeout: 2 * 60 * 1000, //Blocks for 15 minutes after exceeding attempts.
     maxTimeout: 30 * 60 * 1000 //Maximum block time (30 minutes).
 })
@@ -55,7 +55,7 @@ router.post("/register", [
     let query = { account_number: req.body.account_number.toString()};
 
     //Attempts to find a user document that has the same account number (no duplicate account numbers allowed).
-    let user = await collection.findOne({query});
+    let user = await collection.findOne(query);
 
     if (user) {
         //Sends a 409 (Conflict) response if the account number already exits.

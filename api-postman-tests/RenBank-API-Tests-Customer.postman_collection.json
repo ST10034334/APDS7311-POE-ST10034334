@@ -178,7 +178,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Mary Jane\",\r\n  \"id_number\": \"0109184567198\",\r\n  \"account_number\": \"784567379\",\r\n  \"password\": \"MJDoorknob56!\"\r\n}",
+									"raw": "{\r\n  \"name\": \"Mary Jane\",\r\n  \"id_number\": \"0109184567198\",\r\n  \"account_number\": \"6745678822\",\r\n  \"password\": \"MJDoorknob56!\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -229,6 +229,10 @@
 											"    pm.expect(jsonData).to.have.property(\"token\");\r",
 											"});\r",
 											"\r",
+											"//Sets the 'jwt_token' environment variable.\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set(\"jwt_token\", jsonData.token);\r",
+											"\r",
 											"//Test 3: Verify response contains role\r",
 											"pm.test(\"Response contains role\", function () {\r",
 											"    const jsonData = pm.response.json();\r",
@@ -252,7 +256,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n  \"name\": \"Matthew Simmons\",\r\n  \"account_number\": \"6745678822\",\r\n  \"password\": \"MS32kingdom!\"\r\n}\r\n",
+									"raw": "{\r\n  \"name\": \"John Doe\",\r\n  \"account_number\": \"784567379\",\r\n  \"password\": \"JDHandbag90$\"\r\n}\r\n",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -465,11 +469,289 @@
 					"description": "This folder contains all the test cases related to the **user login** (`POST /auth/login`) functionality of the API. The tests in this folder aim to validate that the user login process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Login**: Verifying that a user can successfully login with valid data, and that the system responds with a **200 status code** and returns necessary details like `token`, `role`, and `name`.\n    \n2. **Incorrect Fields**: Testing how the API handles cases where one or more required fields (like `name`, `account_number`, or `password`) are incorrect, expecting the system to return a **400 status code** and an appropriate error message.\n    \n3. **Incorrect Password**: Testing the scenario where a user tries to login with an incorrect password, expecting the API to return a **401 status code** and an error message (e.g., `Incorrect password`).\n    \n4. **No User Found**: Testing the scenario where a user tries to login with an account that doesn't exist, expecting the API to return a **404 status code** and an error message (e.g., `User doesn't exist`)."
 				}
 			],
-			"description": "This folder contains all the test cases related to the **user authentication** functionality of the API, including **user registration** and **user login** (`POST /auth/register and POST /auth/login`). The tests in this folder aim to validate that the user authentication process works as expected for both valid and invalid inputs."
+			"description": "This folder contains all the test cases related to the **user authentication** functionality of the API, for a user with the 'Customer' role, which includes **user registration** and **user login** (`POST /auth/register and POST /auth/login`). The tests in this folder aim to validate that the user authentication process works as expected for both valid and invalid inputs."
 		},
 		{
 			"name": "Pay Endpoint",
 			"item": [
+				{
+					"name": "Create Payment Tests",
+					"item": [
+						{
+							"name": "Valid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 201 (Successful creation)\r",
+											"pm.test(\"Verify status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify response contains insertedId within the 'results' object\r",
+											"pm.test(\"Response contains insertedId\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.results).to.have.property(\"insertedId\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"currency\": \"US Dollar (USD)\",\r\n    \"provider\": \"SWIFT\",\r\n    \"recipient_name\": \"Mary Loops\",\r\n    \"recipient_account_number\": \"679982327\",\r\n    \"recipient_bank_name\": \"JPMorgan Chase Bank\",\r\n    \"recipient_bank_branch_code\": \"987654\",\r\n    \"swift_code\" : \"CHASUS33\",\r\n    \"verified\" : false,\r\n    \"submit_swift\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/createPayment",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"createPayment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 400 (Bad Request) for invalid creation input\r",
+											"pm.test(\"Verify status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify 'Amount must be at least 1.0' error message\r",
+											"pm.test(\"Verify 'Amount must be at least 1.0' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const amountError = jsonData.errors.find(err => err.path === 'amount');\r",
+											"    pm.expect(amountError).to.have.property('msg', 'Amount must be at least 1.0.');\r",
+											"});\r",
+											"\r",
+											"//Test 3: Verify 'Provider is required' error message\r",
+											"pm.test(\"Verify 'Provider is required' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const providerError = jsonData.errors.find(err => err.path === 'provider');\r",
+											"    pm.expect(providerError).to.have.property('msg', 'Provider is required.');\r",
+											"});\r",
+											"\r",
+											"//Test 4: Verify 'Recipient bank branch code must only contain digits' error message\r",
+											"pm.test(\"Verify 'Recipient bank branch code must only contain digits' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const branchCodeError = jsonData.errors.find(err => err.path === 'recipient_bank_branch_code');\r",
+											"    pm.expect(branchCodeError).to.have.property('msg', 'Recipient bank branch code must only contain digits.');\r",
+											"});\r",
+											"\r",
+											"//Test 5: Verify 'Verified must either be true/false' error message\r",
+											"pm.test(\"Verify 'Verified must either be true/false' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const verifiedError = jsonData.errors.find(err => err.path === 'verified');\r",
+											"    pm.expect(verifiedError).to.have.property('msg', 'Verified must either be true/false.');\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 0.0,\r\n    \"currency\": \"US Dollar (USD)\",\r\n    \"provider\": \"\",\r\n    \"recipient_name\": \"Mary Loops\",\r\n    \"recipient_account_number\": \"679982327\",\r\n    \"recipient_bank_name\": \"JPMorgan Chase Bank\",\r\n    \"recipient_bank_branch_code\": \"JPMorgan Chase Bank\",\r\n    \"swift_code\" : \"CHASUS33\",\r\n    \"verified\" : \"Mary Loops\",\r\n    \"submit_swift\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/createPayment",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"createPayment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid SWIFT",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 404 (Not Found)\r",
+											"pm.test(\"Verify status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Invalid SWIFT Code. Please check and try again' message\r",
+											"pm.test(\"Response contains 'Invalid SWIFT Code. Please check and try again' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Invalid SWIFT Code. Please check and try again.\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"currency\": \"US Dollar (USD)\",\r\n    \"provider\": \"SWIFT\",\r\n    \"recipient_name\": \"Mary Loops\",\r\n    \"recipient_account_number\": \"679982327\",\r\n    \"recipient_bank_name\": \"JPMorgan Chase Bank\",\r\n    \"recipient_bank_branch_code\": \"987654\",\r\n    \"swift_code\" : \"GBA5555X\",\r\n    \"verified\" : false,\r\n    \"submit_swift\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/createPayment",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"createPayment"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"amount\": 1000,\r\n    \"currency\": \"US Dollar (USD)\",\r\n    \"provider\": \"SWIFT\",\r\n    \"recipient_name\": \"Mary Loops\",\r\n    \"recipient_account_number\": \"679982327\",\r\n    \"recipient_bank_name\": \"JPMorgan Chase Bank\",\r\n    \"recipient_bank_branch_code\": \"987654\",\r\n    \"swift_code\" : \"CHASUS33\",\r\n    \"verified\" : false,\r\n    \"submit_swift\" : false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/createPayment",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"createPayment"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **international payments creation** (`POST /pay/createPayment`) functionality of the API. The tests in this folder aim to validate that the payment creation process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Creation**: Verifying that a user can successfully create an international payment with valid data, and that the system responds with a **201 status code** and returns necessary details like `insertedId`.\n    \n2. **Incorrect Fields**: Testing how the API handles cases where one or more required fields (like `account_number`, `recipient_bank_branch_code`, `amount` or `provider`) are incorrect, expecting the system to return a **400 status code** and an appropriate error message.\n    \n3. **Incorrect SWIFT Code**: Testing how the API handles cases where one uses a SWIFT Code that doesn't exist, expecting the system to return a **404 status code** and an appropriate error message.\n    \n4. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
 				{
 					"name": "My Payments Tests",
 					"item": [
@@ -488,6 +770,19 @@
 										"type": "text/javascript",
 										"packages": {}
 									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"//Sets a delay by 2 seconds to make sure new jwt_token is recognised\r",
+											"setTimeout(() => {\r",
+											"  console.log(`Delayed by 2 seconds`);\r",
+											"}, 2000);"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
 								}
 							],
 							"request": {
@@ -496,7 +791,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZDkxN2U4OWIyM2E3OWFkYThhMjcxIiwicm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzMxMjM4NjM0LCJleHAiOjE3MzEyNDIyMzR9.Edco5dINNPUoKglSq7pCPssxBS4KnxGgt1qIpaWo_E4",
+											"value": "{{jwt_token}}",
 											"type": "string"
 										}
 									]
@@ -567,140 +862,12 @@
 								"description": "**Test Objective:** Ensure that a user cannot view their own international payments without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
 							},
 							"response": []
-						},
-						{
-							"name": "Invalid Role",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"//Test 1: Verify status code is 401 (Unauthorized)\r",
-											"pm.test(\"Verify status code is 401\", function () {\r",
-											"    pm.response.to.have.status(401);\r",
-											"});\r",
-											"\r",
-											"\r",
-											"//Test 2: Verify response contains 'Payment Retrieval Failed! User's role must be a Customer' message\r",
-											"pm.test(\"Response contains 'Payment Retrieval Failed! User's role must be a Customer\", function () {\r",
-											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData).to.have.property('message', 'Payment Retrieval Failed! User\\'s role must be a Customer.');\r",
-											"});"
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZThmNmNhZTg2MDdhOWIyMjUyMmViIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzMxMjQwNDkxLCJleHAiOjE3MzEyNDQwOTF9.WwAjgZnxzXG3X09jgCVIw_lfAmNGEAaRG0uUuUX8sJ0",
-											"type": "string"
-										}
-									]
-								},
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "https://renbank-api.oa.r.appspot.com/pay/myPayments",
-									"protocol": "https",
-									"host": [
-										"renbank-api",
-										"oa",
-										"r",
-										"appspot",
-										"com"
-									],
-									"path": [
-										"pay",
-										"myPayments"
-									]
-								},
-								"description": "**Test Objective:** Ensure that a user cannot view their own international payments without proper authorization.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Payment Retrieval Failed! User's role must be a Customer.'`"
-							},
-							"response": []
 						}
 					],
-					"description": "This folder contains all the test cases related to the **viewing of all international payments** **made by a specific user** functionality (`GET /pay/myPayments`) of the API. The tests in this folder are designed to validate that the process of viewing all international payments made by a specific user operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **My Payments**: Verifying that a user can successfully view all their payments created, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message.\n    \n3. **Invalid Role**: Testing how the API handles cases where a user doesn't have the correct privileges, expecting the system to return a **401 status code** and an appropriate error message."
-				},
-				{
-					"name": "Create Payment Tests",
-					"item": [
-						{
-							"name": "Valid Input",
-							"event": [
-								{
-									"listen": "test",
-									"script": {
-										"exec": [
-											"//Test 1: Verify status code is 201 (Successful creation)\r",
-											"pm.test(\"Verify status code is 201\", function () {\r",
-											"    pm.response.to.have.status(201);\r",
-											"});\r",
-											"\r",
-											"//Test 2: Verify response contains insertedId within the 'results' object\r",
-											"pm.test(\"Response contains insertedId\", function () {\r",
-											"    const jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.results).to.have.property(\"insertedId\");\r",
-											"});\r",
-											"\r",
-											"\r",
-											""
-										],
-										"type": "text/javascript",
-										"packages": {}
-									}
-								}
-							],
-							"request": {
-								"auth": {
-									"type": "bearer",
-									"bearer": [
-										{
-											"key": "token",
-											"value": "{{jwt_token}}",
-											"type": "string"
-										}
-									]
-								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "raw",
-									"raw": "{\r\n    \"amount\": 1000,\r\n    \"currency\": \"US Dollar (USD)\",\r\n    \"provider\": \"SWIFT\",\r\n    \"recipient_name\": \"Mary Loops\",\r\n    \"recipient_account_number\": \"679982327\",\r\n    \"recipient_bank_name\": \"JPMorgan Chase Bank\",\r\n    \"recipient_bank_branch_code\": \"987654\",\r\n    \"swift_code\" : \"CHASUS33\",\r\n    \"verified\" : false,\r\n    \"submit_swift\" : false\r\n}",
-									"options": {
-										"raw": {
-											"language": "json"
-										}
-									}
-								},
-								"url": {
-									"raw": "https://renbank-api.oa.r.appspot.com/pay/createPayment",
-									"protocol": "https",
-									"host": [
-										"renbank-api",
-										"oa",
-										"r",
-										"appspot",
-										"com"
-									],
-									"path": [
-										"pay",
-										"createPayment"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"description": "This folder contains all the test cases related to the **user registration** (`POST /auth/register`) functionality of the API. The tests in this folder aim to validate that the user registration process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Registration**: Verifying that a user can successfully register with valid data, and that the system responds with a **201 status code** and returns necessary details like `insertedId`.\n    \n2. **Incorrect Fields**: Testing how the API handles cases where one or more required fields (like `name`, `id_number`, or `password`) are incorrect, expecting the system to return a **400 status code** and an appropriate error message.\n    \n3. **Duplicate Account**: Testing the scenario where a user tries to register with an already existing `account_number`, expecting the API to return a **409 status code**, and an error message (e.g., `Account number already exists`)."
+					"description": "This folder contains all the test cases related to the **viewing of all international payments** **made by a specific user** functionality (`GET /pay/myPayments`) of the API. The tests in this folder are designed to validate that the process of viewing all international payments made by a specific user operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **My Payments**: Verifying that a user can successfully view all their payments created, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
 				}
 			],
-			"description": "This folder contains all the test cases related to the international payments functionality of the API, including **viewing all payments**, **payment creation**, **verifying payments**, **submitting payments to SWIFT**, and **viewing user-specific payments** (`GET /pay/, POST /pay/createPayment, PATCH /pay/updateVerification/:id, PATCH /pay/updateSubmission/:id, GET /pay/myPayments`) . The tests in this folder aim to validate that the international payment process works as expected for both valid and invalid inputs."
+			"description": "This folder contains all the test cases related to the international payments functionality of the API, for a user with the 'Customer' role, which includes **payment creation** and **viewing user-specific payments** (`POST /pay/createPayment, GET /pay/myPayments`) . The tests in this folder aim to validate that the international payment process works as expected for both valid and invalid inputs."
 		}
 	]
 }
