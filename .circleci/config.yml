@@ -27,7 +27,7 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-       - checkout  # This step pulls in your repo code
+      - checkout  # This step pulls in your repo code
       - run:
           name: Print working directory
           command: pwd
