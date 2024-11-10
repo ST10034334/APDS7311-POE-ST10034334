@@ -1,4 +1,4 @@
-# APDS7311 PART 2 RENBANK README
+# APDS7311 POE RENBANK README
 # Presented by: 
 - ST10155387 - Mayuren Chettiar
 - ST10034334 - Rachael Moeira
@@ -78,6 +78,12 @@ International Pay Screen: Once the user chooses international Pay, they are navi
 
 My Payment Screen: Once everything is finalised the user is directed to the My Payment Screen where they can view the existing and recently made Payments<br>
 ![Screenshot 2024-10-08 155225](https://github.com/user-attachments/assets/1bb58a41-2021-4a89-b7f9-c254ab95cee3)
+
+
+
+![Screenshot 2024-11-10 210054](https://github.com/user-attachments/assets/f491efa1-ea01-4529-9826-f84c71d011cd)
+
+
 
 # Renbank Tutorial and Security Videos
 
