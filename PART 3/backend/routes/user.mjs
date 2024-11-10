@@ -102,6 +102,42 @@ async (req, res) => {
 });
 
 
+
+//Defines a GET route for retrieving users by user ID.
+router.get("/:id", checkAuthorisation, async (req, res) => {
+
+    //Uses the role from the decoded token (from checkAuthorisation middleware).
+    const role = req.role;
+
+    //Verifies that the user's role is an Admin or Employee (only they can view the user's for the payments).
+    if (role == "Admin" || role == "Employee")
+    {
+
+    //Query to find the user by its ID.
+    const query = { _id: new ObjectId(req.params.id) }; 
+
+    //Retrieves the "Users" collection from the database.
+    let collection = await db.collection("Users");
+
+    //Finds all documents in the "Users" collection that match query.
+    let results = await collection.findOne(query);
+
+    //Sends a response with the payment data if found, or a 404 (Not Found) status if not.
+    if (!results) {
+        res.status(404).send("User Retrieval Failed! User doesn't exist.");
+    } else {
+        res.status(200).send(results); 
+    }
+    }
+    else{
+
+    //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+    res.status(401).json({ message: "User Retrieval Failed! User's role must be an Admin or Employee." });
+   }
+});
+
+
+
 //Defines a PATCH route for updating a specific user by ID.
 //Uses checkAuthorisation to confirm user is logged in.
 router.patch("/updateUser/:id", checkAuthorisation, async (req, res) => {

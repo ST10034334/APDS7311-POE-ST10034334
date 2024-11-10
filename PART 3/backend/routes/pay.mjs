@@ -221,7 +221,7 @@ router.get("/myPayments", checkAuthorisation, async (req, res) => {
 
     //Sends a response with the payment data if found, or a 404 (Not Found) status if not.
     if (results.length === 0) {
-        res.status(404).send("No payments found for this user.");
+        res.status(404).json({message : "No payments found for this user."});
     } else {
         res.status(200).send(results); 
     }
