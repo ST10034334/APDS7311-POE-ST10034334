@@ -64,7 +64,7 @@ jobs:
           name: List files in api-postman-tests directory recursively
           command: ls -R "api-postman-tests"
       - newman/newman-run:
-          collection: api-postman-tests
+          collection: api-postman-tests/RenBank API Tests - Customer.postman_collection.json
           environment: api-postman-tests
 
 # Orchestrate jobs using workflows
