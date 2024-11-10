@@ -13,7 +13,7 @@ import '../assets/mobirise/css/mbr-additional.css?v=ZR21yi';
 
 
 //InternationalPay() function defines a component for the International Pay page.
-{/* The IIE (2024) demonstrates how to work with form submissions - International Pay Page */}
+/* The IIE (2024) demonstrates how to work with form submissions - International Pay Page */
 //This component takes in a triggerError function to trigger the Error page where appropriate.
 //Kim (2022) demonstrates how to use and pass functions as props.
 export default function InternationalPay ({triggerError}) {
