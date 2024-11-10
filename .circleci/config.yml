@@ -61,8 +61,8 @@ jobs:
     steps:
       - checkout
       - newman/newman-run:
-          collection: ./api-postman-test/RenBank API Tests - Customer.postman_collection.json
-          environment: ./api-postman-test/Customer.postman_environment.json
+          collection: ./api-postman-tests/RenBank API Tests - Customer.postman_collection.json
+          environment: ./api-postman-tests/Customer.postman_environment.json
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
