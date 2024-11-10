@@ -284,7 +284,7 @@ async function handleSubmission(paymentID) {
 <span 
    className="close-icon" 
    style={{ fontSize: '20px', color: 'white', marginLeft: '10px' }}
-  >&times;</span>
+  >&times;  </span>
   {error}
 </div>}
 {message && 

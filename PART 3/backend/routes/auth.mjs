@@ -6,7 +6,6 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
 import ExpressBrute from "express-brute";
-import DOMPurify from "dompurify";
 
 //Creates a new router instance for handling routes.
 const router = express.Router(); 
@@ -54,7 +53,7 @@ router.post("/register", [
     let collection = await db.collection("Users");
 
     //Converts account number to string before attempting database query.
-    let query = { account_number: req.body.account_number};
+    let query = { account_number: req.body.account_number.toString()};
 
     //Attempts to find a user document that has the same account number (no duplicate account numbers allowed).
     let user = await collection.findOne({query});
@@ -97,8 +96,8 @@ async (req, res) => {
         let user = await collection.findOne({ name, account_number });
 
         if (!user) {
-            //Sends a 401 (Unauthorized) response if the user is not found.
-            res.status(401).json({ message: "Authentication Failed! User doesn't exist." });
+            //Sends a 404 (Not found) response if the user is not found.
+            res.status(404).json({ message: "Authentication Failed! User doesn't exist." });
             return;
         }
 

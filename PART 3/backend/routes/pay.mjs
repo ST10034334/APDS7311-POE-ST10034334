@@ -13,8 +13,14 @@ const router = express.Router();
 
 //Defines a GET route for the root path ("/").
 //Gets all payments in the collection.
-router.get("/", async (req, res) => {
+router.get("/", checkAuthorisation, async (req, res) => {
 
+      //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+  //Verifies that the user's role is an Admin/Employee (only they can view all payments).
+   if (role == "Admin" || role == "Employee")
+    {
     //Retrieves the "Payments" collection from the database.
     let collection = await db.collection("Payments");
 
@@ -23,6 +29,13 @@ router.get("/", async (req, res) => {
 
     //Sends the results as the response with a status code of 200 (OK).
     res.status(200).send(results);
+    }
+    else{
+
+        //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+        res.status(401).json({ message: "Payment Retrieval Failed! User's role must be an Admin or Employee." });
+    }
+
 });
 
 //Defines a POST route for the "/createPayment" path.
@@ -113,6 +126,12 @@ async (req, res) => {
 //Uses checkAuthorisation to confirm user is logged in.
 router.patch("/updateVerification/:id", checkAuthorisation, async (req, res) => {
 
+   //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+  //Verifies that the user's role is an Admin/Employee (only they can update payments).
+   if (role == "Admin" || role == "Employee")
+    {
     //Query to find the payment by its ID.
     const query = { _id: new ObjectId(req.params.id) }; 
 
@@ -131,6 +150,12 @@ router.patch("/updateVerification/:id", checkAuthorisation, async (req, res) => 
 
     //Sends a response with the result of the update operation and a status code of 200 (OK).
     res.status(200).send(results);
+}
+else{
+
+    //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+    res.status(401).json({ message: "Payment Update Failed! User's role must be an Admin or Employee." });
+}
 });
 
 
@@ -139,6 +164,12 @@ router.patch("/updateVerification/:id", checkAuthorisation, async (req, res) => 
 //Uses checkAuthorisation to confirm user is logged in.
 router.patch("/updateSubmission/:id", checkAuthorisation, async (req, res) => {
 
+  //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+  //Verifies that the user's role is an Admin/Employee (only they can update payments).
+   if (role == "Admin" || role == "Employee")
+    {
     //Query to find the payment by its ID.
     const query = { _id: new ObjectId(req.params.id) }; 
 
@@ -157,6 +188,12 @@ router.patch("/updateSubmission/:id", checkAuthorisation, async (req, res) => {
 
     //Sends a response with the result of the update operation and a status code of 200 (OK).
     res.status(200).send(results);
+}
+else{
+
+    //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+    res.status(401).json({ message: "Payment Update Failed! User's role must be an Admin or Employee." });
+}
 });
 
 
@@ -194,42 +231,6 @@ router.get("/myPayments", checkAuthorisation, async (req, res) => {
     //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
     res.status(401).json({ message: "Payment Retrieval Failed! User's role must be a Customer." });
    }
-});
-
-
-//Defines a DELETE route for removing a specific payment by ID.
-//Uses checkAuthorisation to confirm user is logged in.
-router.delete("/removePayment", checkAuthorisation, async (req, res) => {
-    const { paymentID } = req.body;
-
-    //Query to find the payment by its ID.
-    const query = { _id: new ObjectId(paymentID)}; 
-
-    //Retrieves the "Payments" collection from the database.
-    let collection = await db.collection("Payments");
-
-    //Finds the document in the "Payments" collection that matches query.
-    let paymentResult = await collection.find({query})
-
-    //Checks if the payment exists.
-    if (!paymentResult) {
-
-        //Sends a 404 (Not Found) response if the payment doesn't exist.
-        return res.status(404).json({ message: "Payment not found." });
-    }
-
-    //Checks if the payment is verified.
-    if (paymentResult.verified) {
-
-       //Sends a 403 (Forbidden) response if the payment has already been verified.
-        return res.status(403).json({ message: "Cannot delete a verified payment." });
-    }
-
-    //Deletes the payment that matches the query.
-    let results = await collection.deleteOne(query);
-
-    //Sends a response with the result of the delete operation and a status code of 200 (OK).
-    res.status(200).send(results);
 });
 
 

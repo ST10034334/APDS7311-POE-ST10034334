@@ -2,10 +2,9 @@
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
+import bcrypt from "bcrypt";
 import { body, validationResult } from "express-validator";
 import checkAuthorisation from "../check-auth.mjs";
-import axios from 'axios';
-
 
 //Creates a new router instance for handling routes.
 const router = express.Router();
@@ -13,8 +12,14 @@ const router = express.Router();
 
 //Defines a GET route for the root path ("/").
 //Gets all users in the collection.
-router.get("/", async (req, res) => {
+router.get("/", checkAuthorisation, async (req, res) => {
 
+  //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+   //Verifies that the user's role is an Admin (only admins can view all users).
+    if (role == "Admin")
+     {
     //Retrieves the "Users" collection from the database.
     let collection = await db.collection("Users");
 
@@ -23,6 +28,12 @@ router.get("/", async (req, res) => {
 
     //Sends the results as the response with a status code of 200 (OK).
     res.status(200).send(results);
+     }
+    else{
+
+        //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+        res.status(401).json({ message: "Payment Creation Failed! User's role must be an Admin." });
+    }
 });
 
 
@@ -39,11 +50,18 @@ router.post("/createUser", checkAuthorisation, [
 ],
 async (req, res) => {
 
+  //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
     //Handles validation errors by returning a status code 400, with an array of all errors present.
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
+
+    //Verifies that the user's role is an Admin (only admins can create users).
+    if (role == "Admin")
+    {
 
     //Hashes the password with bcrypt, with a salt of 10, before storing it.
     //freeCodeCamp (2024) demonstrates how to hash passwords with bcrypt.
@@ -66,7 +84,7 @@ async (req, res) => {
 
     if (user) {
         //Sends a 409 (Conflict) response if the account number already exits.
-        res.status(409).json({ message: "Registration Failed. Account Number already exists." });
+        res.status(409).json({ message: "Creation Failed. Account Number already exists." });
         return;
     }
 
@@ -74,20 +92,35 @@ async (req, res) => {
     let results = await collection.insertOne(newDocument);
 
     //Sends a response indicating that the document was successfully inserted with a status code of 201 (Created).
-    res.status(201).send({message: "User Registration Successful!", results});
+    res.status(201).send({message: "User Creation Successful!", results});
+}
+    else{
+
+        //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+        res.status(401).json({ message: "Payment Creation Failed! User's role must be an Admin." });
+    }
 });
 
 
-//Defines a PATCH route for updating a specific user by ID to reflect its verification.
+//Defines a PATCH route for updating a specific user by ID.
 //Uses checkAuthorisation to confirm user is logged in.
-router.patch("/:id", checkAuthorisation, async (req, res) => {
+router.patch("/updateUser/:id", checkAuthorisation, async (req, res) => {
 
+  //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+    //Verifies that the user's role is an Admin (only admins can update users).
+    if (role == "Admin")
+    {
     //Query to find the user by its ID.
     const query = { _id: new ObjectId(req.params.id) }; 
 
     const updates = {
         $set: {
-            verified: req.body.verified //Updated verified field.
+            name: req.body.name,
+            id_number: req.body.id_number,
+            account_number: req.body.account_number,
+            role: req.body.role
         }
     };
 
@@ -99,40 +132,28 @@ router.patch("/:id", checkAuthorisation, async (req, res) => {
 
     //Sends a response with the result of the update operation and a status code of 200 (OK).
     res.status(200).send(results);
-});
+}
+else{
 
-
-//Defines a GET route for retrieving user by user ID.
-router.get("/:id", checkAuthorisation, async (req, res) => {
-
-    //Uses the user_id and role from the decoded token (from checkAuthorisation middleware).
-    const userId = req.user_id;
-
-    console.log(userId)
-
-   //Query to find the user by its ID.
-   const query = { _id: new ObjectId(req.params.id) }; 
-
-    //Retrieves the "Users" collection from the database.
-    let collection = await db.collection("Users");
-
-    //Finds the document in the "Users" collection that matches query.
-    let results = await collection.findOne(query);
-
-    //Sends a response with the user data if found, or a 404 (Not Found) status if not.
-    if (!results) {
-        res.status(404).send("User doesn't exist.");
-    } else {
-        res.status(200).send(results); 
-    }
-
+    //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+    res.status(401).json({ message: "Payment Creation Failed! User's role must be an Admin." });
+}
 });
 
 
 //Defines a DELETE route for removing a specific user by ID.
 //Uses checkAuthorisation to confirm user is logged in.
 router.delete("/removeUser", checkAuthorisation, async (req, res) => {
+
+ //Uses the role from the decoded token (from checkAuthorisation middleware).
+  const role = req.role;
+
+  //Verifies that the user's role is an Admin (only admins can delete users).
+  if (role == "Admin")
+  {
+  //Uses 
     const { userID } = req.body;
+    console.log(userID)
 
     //Query to find the user by its ID.
     const query = { _id: new ObjectId(userID)}; 
@@ -141,7 +162,7 @@ router.delete("/removeUser", checkAuthorisation, async (req, res) => {
     let collection = await db.collection("Users");
 
     //Finds the document in the "Users" collection that matches query.
-    let userResult = await collection.find({query})
+    let userResult = await collection.findOne(query)
 
     //Checks if the user exists.
     if (!userResult) {
@@ -150,18 +171,17 @@ router.delete("/removeUser", checkAuthorisation, async (req, res) => {
         return res.status(404).json({ message: "User not found." });
     }
 
-    //Checks if the user is verified.
-    if (userResult.verified) {
-
-       //Sends a 403 (Forbidden) response if the user has already been verified.
-        return res.status(403).json({ message: "Cannot delete a verified user." });
-    }
-
     //Deletes the user that matches the query.
     let results = await collection.deleteOne(query);
 
     //Sends a response with the result of the delete operation and a status code of 200 (OK).
     res.status(200).send(results);
+}
+else{
+
+    //Sends a 401 (Unauthorized) response if the user's role is not a Customer.
+    res.status(401).json({ message: "Payment Creation Failed! User's role must be an Admin." });
+}
 });
 
 

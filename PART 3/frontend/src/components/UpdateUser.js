@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { validAccountNumber, validName, validPassword, validIDNumber, validRole} from '../regex.js';
 import "../assets/web/assets/mobirise-icons2/mobirise2.css";
 import "../assets/bootstrap/css/bootstrap.min.css";
@@ -17,20 +17,30 @@ import DOMPurify from "dompurify";
 //Kim (2022) demonstrates how to use and pass functions as props.
 export default function UpdateUser({triggerError}) {
   const navigate = useNavigate();
+  const location = useLocation();
+  const [role, setRole] = useState(localStorage.getItem('role'));
+  const [token, setToken] = useState(localStorage.getItem('token'));
   const [error, setError] = useState("");
+
+  //Accessing user object state passed by navigate.
+  const { user } = location.state || {}; 
+  console.log("USER DATA2: ", user ? user.name : "No user data");
 
   //State to hold user data.
   const [userData, setUserData] = useState({
     name: "",
     id_number: "",
     account_number: "",
-    password: "",
     role: ""
   });
 
-
    //Checks if the user is verified each time the component is navigated to. 
    useEffect(() => {
+
+        //If user data is available, sets the state.
+        if (user) {
+            setUserData(user);
+        }
 
     //If no token or role, redirects to the login page.
     if (!token || !role) {
@@ -44,10 +54,6 @@ export default function UpdateUser({triggerError}) {
         triggerError('You do not have the right privileges to access this page.');
         navigate('/error');
 
-      } else {
-
-        //Calls getAllUsers if token and role are valid.
-        getAllUsers();
       }
     }, [token, role, navigate]); 
 
@@ -64,7 +70,7 @@ export default function UpdateUser({triggerError}) {
     {
 
         //Checks that all fields are inputted.
-        if (!userData.name || !userData.id_number || !userData.account_number || !userData.password || !userData.role)
+        if (!userData.name || !userData.id_number || !userData.account_number || !userData.role)
         {
             setError('All fields are required.');
 
@@ -112,21 +118,6 @@ export default function UpdateUser({triggerError}) {
               return false;
             }
 
-
-        //Checks the password input field.
-        //TutorialsPoint (2023) demonstrates how to use RegEx.
-        if (!validPassword.test(userData.password))
-            {
-              setError(`Password must be between 8 and 20 characters and must contain at least \n 
-                        one uppercase, lowercase, digit, and special character in the set [@$!%*?&^()]`);
-    
-                //Clears the error message after 3 seconds.
-               //W3Schools (2024) demonstrates the setTimeout() function.
-               setTimeout(() => setError(''), 3000);
-              return false;
-            }
-
-
             
         //Checks the role input field.
         //TutorialsPoint (2023) demonstrates how to use RegEx.
@@ -151,9 +142,7 @@ export default function UpdateUser({triggerError}) {
   //If successful, resets the user data, and navigates back to the UserManagementHub page.
   //If not, shows an appropriate error message to the user.
   async function handleSubmit(e) {
-    //Prevents the default form submission behavior.
     e.preventDefault();
-
     //Field validations.
     if (!checkData()) {
       return;
@@ -164,20 +153,20 @@ export default function UpdateUser({triggerError}) {
       name: DOMPurify.sanitize(userData.name),
       id_number: DOMPurify.sanitize(userData.id_number),
       account_number: DOMPurify.sanitize(userData.account_number),
-      password: DOMPurify.sanitize(userData.password),
       role: DOMPurify.sanitize(userData.role),
     };
 
     const user = { ...sanitizedUserData };
 
     try {
+        
       //Makes an API request to create the user.
-      const response = await fetch(
-        "https://renbank-api.oa.r.appspot.com/user/createUser",
+      const response = await fetch( `https://renbank-api.oa.r.appspot.com/user/updateUser/${userData._id}`,
         {
-          method: "POST",
+          method: "PATCH",
           headers: {
             "Content-Type": "application/json",
+            "Authorization" : `Bearer ${token}`
           },
 
           //Sends the user data in JSON format.
@@ -187,22 +176,14 @@ export default function UpdateUser({triggerError}) {
 
       //Sets error message if user fails.
       if (!response.ok) {
-        setError("User creation failed. Please try again.");
+        setError("User update failed. Please try again.");
 
         //Clears the error message after 3 seconds.
         //W3Schools (2024) demonstrates the setTimeout() function.
         setTimeout(() => setError(""), 3000);
 
       } else {
-
-        setUserData({
-          name: "",
-          id_number: "",
-          account_number: "",
-          password: "",
-        });
-
-        navigate("/userManagement");
+      navigate("/userManagement");
       }
     } catch (error) {
 
@@ -223,7 +204,7 @@ export default function UpdateUser({triggerError}) {
             <div className="col-12 content-head">
               <div className="mbr-section-head mb-5">
                 <h3 className="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                  <strong>Userister</strong>
+                  <strong>Update User</strong>
                 </h3>
               </div>
             </div>
@@ -231,7 +212,7 @@ export default function UpdateUser({triggerError}) {
 
           <div className="row justify-content-center">
             <div className="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-              {/* Submission Form - User Creation */}
+              {/* Submission Form - User Update */}
               <form
                 onSubmit={handleSubmit}
                 className="mbr-form form-with-styler"
@@ -246,7 +227,7 @@ export default function UpdateUser({triggerError}) {
                     <input
                       type="text"
                       name="name"
-                      placeholder="Full Name"
+                      value={userData.name}
                       className="form-control"
                       onChange={(e) => updateForm({ name: e.target.value })}
                     ></input>
@@ -260,7 +241,7 @@ export default function UpdateUser({triggerError}) {
                     <input
                       type="text"
                       name="id_number"
-                      placeholder="ID Number"
+                      value={userData.id_number}
                       className="form-control"
                       onChange={(e) =>
                         updateForm({ id_number: e.target.value })
@@ -276,22 +257,11 @@ export default function UpdateUser({triggerError}) {
                     <input
                       type="text"
                       name="account_number"
-                      placeholder="Account Number"
+                      value={userData.account_number}
                       className="form-control"
                       onChange={(e) =>
                         updateForm({ account_number: e.target.value })
                       }
-                    ></input>
-                  </div>
-
-                  {/* Password field */}
-                  <div className="col-12 form-group mb-3" data-for="password">
-                    <input
-                      type="password"
-                      name="password"
-                      placeholder="Password"
-                      className="form-control"
-                      onChange={(e) => updateForm({ password: e.target.value })}
                     ></input>
                   </div>
 
@@ -300,6 +270,7 @@ export default function UpdateUser({triggerError}) {
                  <select
                    name="role"
                    className="form-control"
+                   value={userData.role}
                    onChange={(e) => updateForm({ role: e.target.value })}
                  >
                   <option value="">Select Role</option>

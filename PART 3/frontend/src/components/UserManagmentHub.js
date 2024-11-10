@@ -19,6 +19,7 @@ function UserManagementHub ({triggerError}) {
     //freeCodeCamp (2022) demonstrates how to use localStorage.
     const [token, setToken] = useState(localStorage.getItem('token'));
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
     const [role, setRole] = useState(localStorage.getItem('role'));
     const navigate = useNavigate();
     const [users, setUsers] = useState([]);
@@ -104,24 +105,75 @@ function UserManagementHub ({triggerError}) {
     return filter === 'all'
   });
 
-//handleCreation() function shows the next required fields if the amount, currency, and provider are valid.
-//Watson (2022) demonstrates how to work with React Select.
-const handleCreation = (e) => {
-    e.preventDefault(); //Prevents default form submssion behaviour.
-
+//handleCreation() function navigates to the CreateUser page.
+function handleCreation () {
+   navigate('/createUser')
   };
 
-//handleUpdate() function shows the next required fields if the amount, currency, and provider are valid.
-//Watson (2022) demonstrates how to work with React Select.
-const handleUpdate = (e) => {
-  e.preventDefault(); //Prevents default form submssion behaviour.
+//handleUpdate() function navigates to the UpdateUser page and passes the selected user's data.
+function handleUpdate (user) {
+  console.log("USER DATA: " + user.name)
+  navigate('/updateUser', { state: { user } });
 
 }; 
 
-//handleDeletion() function shows the next required fields if the amount, currency, and provider are valid.
-//Watson (2022) demonstrates how to work with React Select.
-const handleDeletion = (e) => {
-  e.preventDefault(); //Prevents default form submssion behaviour.
+//handleDeletion() function handles removing a user from the database.
+//First, confirms removal, gets user ID from the user data, and attempts to
+//use the 'user/removeUser' DELETE endpoint to delete the user in database.
+//If successful, shows an appropriate message to the user.
+//If not, shows an appropriate error message to the user.
+async function handleDeletion (user){
+ console.log(user._id)
+  
+  //Confirms deletion of the user before proceeding.
+  //GeeksForGeeks (2024) demonstrates the Window confirm() method.
+  const confirmation = window.confirm(`Are you sure you want to remove ${user.name}?`);
+
+   //Proceeds with the deletion logic if confirmed.
+    if (confirmation) {
+
+      try {
+        
+        //Makes an API request to delete the user.
+        const response = await fetch( `https://renbank-api.oa.r.appspot.com/user/removeUser`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization" : `Bearer ${token}`
+            },
+  
+            //Sends the user ID in JSON format.
+            body: JSON.stringify({ userID: user._id }),
+          }
+        );
+  
+        //Sets error message if user fails.
+        if (!response.ok) {
+          setError("User deletion failed. Please try again.");
+  
+          //Clears the error message after 3 seconds.
+          //W3Schools (2024) demonstrates the setTimeout() function.
+          setTimeout(() => setError(""), 3000);
+  
+        } else {
+          setMessage("User Removal Successful!");
+  
+          //Clears the error message after 3 seconds.
+          //W3Schools (2024) demonstrates the setTimeout() function.
+          setTimeout(() => setMessage(""), 3000);
+        }
+      } catch (error) {
+  
+        //Sets error message if something goes wrong.
+        setError(error);
+        return;
+      }
+
+    } else {
+      // Cancel deletion
+      console.log("Deletion canceled");
+    }
 
 };
 
@@ -164,7 +216,26 @@ const handleDeletion = (e) => {
   </div>
 </div>
 
-<button onClick={handleCreation} className="btn btn-warning btn-sm">
+
+{error && 
+<div className="alert alert-danger mt-3">
+<span 
+   className="close-icon" 
+   style={{ fontSize: '20px', color: 'white', marginLeft: '10px' }}
+  >&times;  </span>
+  {error}
+</div>}
+{message && 
+<div className="alert alert-success mt-3">
+<span 
+   className="close-icon" 
+   style={{ fontSize: '20px', color: 'white', marginLeft: '10px' }}
+  >✓  </span>
+  {message}
+</div>}
+
+
+<button onClick={() => handleCreation()} className="btn btn-warning btn-sm">
   + New User
 </button>
 
@@ -202,13 +273,13 @@ const handleDeletion = (e) => {
               <td style={{ minWidth: '150px', textAlign: 'center', padding: '12px 15px' }}>{user.role}</td>
               {/* Update Button */}
               <td style={{ textAlign: 'center', padding: '12px 15px' }}>
-                <button onClick={handleUpdate} className="btn btn-primary btn-sm">
+                <button onClick={() => handleUpdate(user)} className="btn btn-primary btn-sm">
                   Update
                 </button>
               </td>
               {/* Delete Button */}
               <td style={{ textAlign: 'center', padding: '12px 15px' }}>
-              <button onClick={handleDeletion} className="btn btn-secondary btn-sm">
+              <button onClick={() => handleDeletion(user)} className="btn btn-secondary btn-sm">
                 Delete
               </button>
               </td>
@@ -217,7 +288,6 @@ const handleDeletion = (e) => {
         </tbody>
       </table>
     </div>
-    {error && <div className="alert alert-danger mt-3">{error}</div>}
   </div>
 </div>
 
@@ -246,6 +316,10 @@ export default UserManagementHub;
 freeCodeCamp. 2022. How to Use localStorage with React Hooks to Set and Get Items, 22 February 2022 (Version 1.0)
 [Source code] https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/
 (Accessed 2 October 2024).
+
+GeeksForGeeks. 2024. Javascript Window confirm() Method, 20 August 2024 (Version 2.0)
+[Source code] https://www.geeksforgeeks.org/javascript-window-confirm-method/
+(Accessed 9 November 2024).
 
 Kim, K. 2022. How to Use and Pass Functions as Props— React. Medium, 21 January 2022 (Version 1.0)
 [Soure code] https://medium.com/@kkm2059/how-to-use-and-pass-functions-as-props-react-ff677f5bca0b
