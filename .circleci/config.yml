@@ -56,7 +56,18 @@ jobs:
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART 3/frontend,PART 3/backend"
 
-  postman:
+  postman-customer:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - run:
+          name: List files in api-postman-tests directory recursively
+          command: ls -R "api-postman-tests"
+      - newman/newman-run:
+          collection: api-postman-tests/RenBank-API-Tests-Customer.postman_collection.json
+          environment: api-postman-tests/Customer.postman_environment.json
+
+  postman-employee:
     executor: newman/postman-newman-docker
     steps:
       - checkout
@@ -75,4 +86,5 @@ workflows:
     jobs:
       - say-hello
       - sonarqube
-      - postman
+      - postman-customer
+      - postman-employee
