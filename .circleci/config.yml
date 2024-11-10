@@ -2,6 +2,9 @@
 # See: https://circleci.com/docs/configuration-reference
 version: 2.1
 
+orbs:
+  newman: postman/newman@1.0.0
+
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/jobs-steps/#jobs-overview & https://circleci.com/docs/configuration-reference/#jobs
 jobs:
@@ -21,6 +24,7 @@ jobs:
       - run:
           name: "Say hello"
           command: "echo Hello, World!"
+
   sonarqube:
     working_directory: ~/build
     docker:
@@ -52,6 +56,17 @@ jobs:
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART 3/frontend,PART 3/backend"
 
+  postman:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - run:
+          name: List files in api-postman-tests directory recursively
+          command: ls -R "api-postman-tests"
+      - newman/newman-run:
+          collection: api-postman-tests/RenBank API Tests - Customer.postman_collection.json
+          environment: api-postman-tests/Customer.postman_environment.json
+
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -60,3 +75,4 @@ workflows:
     jobs:
       - say-hello
       - sonarqube
+      - postman
