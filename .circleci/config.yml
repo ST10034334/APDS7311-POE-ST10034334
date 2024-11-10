@@ -29,7 +29,7 @@ jobs:
     steps:
       - run: 
           name: List files
-          command: ls -R
+          command: ls -la
       - attach_workspace:
           at: ~/workspace
       - run: | 
