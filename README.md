@@ -59,24 +59,24 @@ To install the project, follow these steps:
 
 # How to Use Renbank
 
-Main Screen: Loading into the RenBank site, users are greeted with the main screen, here new users can browse the features we provide, and once done can make their own account while existing users can log in.<br>
+Main Screen: Loading into the RenBank site, users are greeted with the main screen, here new users can browse the features we provide, and once done can make their own account while existing users can log in.<br><br>
 ![Screenshot 2024-10-08 154959](https://github.com/user-attachments/assets/18d9a5b7-66dd-4ad6-ab9a-f8c469967ae9)
 
 # Customer Workflow:
 
-Register Screen: By clicking on the "Get Started" Button from the Main screen, users are navigated to the Register screen. On this screen users will need to enter their Credentials, including their ID Number and Account Number and a Password of their choice, once completed they can create their account via Save button.<br>
+Register Screen: By clicking on the "Get Started" Button from the Main screen, users are navigated to the Register screen. On this screen users will need to enter their Credentials, including their ID Number and Account Number and a Password of their choice, once completed they can create their account via Save button. <br><br>
 ![Screenshot 2024-10-08 155016](https://github.com/user-attachments/assets/0ba6f946-815f-4370-86ef-7c9e355741df)
 
-Login Screen: This is the Login Screen where users must enter their Full Name, Account Number and their created Password, once completed they will be allowed to access their account.<br>
+Login Screen: This is the Login Screen where users must enter their Full Name, Account Number and their created Password, once completed they will be allowed to access their account.<br><br>
 ![Screenshot 2024-10-08 155029](https://github.com/user-attachments/assets/182877d7-4a73-4776-9020-e2a49bd9df75)
 
-Main Screen (Logged In): Now that the customer, "Anne" has logged in, she is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: International Pay and My Payments. Customers also have the option to return to the Main Screen or Log Out of the account.<br>
+Main Screen (Logged In): Now that the customer, "Anne" has logged in, she is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: International Pay and My Payments. Customers also have the option to return to the Main Screen or Log Out of the account.<br><br>
 ![Screenshot 2024-10-08 155105](https://github.com/user-attachments/assets/30458e25-a81c-474e-b14e-fee72f99a695)
 
-International Pay Screen: Once the customer chooses International Pay, they are navigated to the screen where they can choose their custom amount,  what provider to send through and their chosen currencey to add. Once they are filled in, click continue and now a details form will display where the customer must now enter a Recipent's Name, Account Number, Bank Name, Branch Code, and lastly the Swift Code. <br>
-![Screenshot 2024-10-08 155117](https://github.com/user-attachments/assets/160862c9-99ce-4c70-af29-988d1e4482e1)
-![Screenshot 2024-10-08 155138](https://github.com/user-attachments/assets/91522e66-16ea-4bb3-bff6-ddff370a8218)
-![Screenshot 2024-10-08 155159](https://github.com/user-attachments/assets/149c9816-837e-4d84-b4bb-3f833892924a)
+International Pay Screen: Once the customer chooses International Pay, they are navigated to the screen where they can choose their custom amount,  what provider to send through and their chosen currencey to add. Once they are filled in, click continue and now a details form will display where the customer must now enter a Recipent's Name, Account Number, Bank Name, Branch Code, and lastly the Swift Code. <br><br>
+![Screenshot 2024-10-08 155117](https://github.com/user-attachments/assets/160862c9-99ce-4c70-af29-988d1e4482e1) <br><br>
+![Screenshot 2024-10-08 155138](https://github.com/user-attachments/assets/91522e66-16ea-4bb3-bff6-ddff370a8218) <br><br>
+![Screenshot 2024-10-08 155159](https://github.com/user-attachments/assets/149c9816-837e-4d84-b4bb-3f833892924a) <br><br>
 
 My Payment Screen: Once everything is finalised, the customer is directed to the My Payment Screen where they can view their existing and recently made Payments.<br>
 ![Screenshot 2024-10-08 155225](https://github.com/user-attachments/assets/1bb58a41-2021-4a89-b7f9-c254ab95cee3)
@@ -85,7 +85,7 @@ My Payment Screen: Once everything is finalised, the customer is directed to the
 
 Employees use static login and are pre-registered onto the system, but are still required to login through the Login Screen.
 
-Main Screen (Logged In): Now that the employee, "Matthew" has logged in, he is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: Payments Portal. Employees also have the option to return to the Main Screen or Log Out of the account.<br>
+Main Screen (Logged In): Now that the employee, "Matthew" has logged in, he is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: Payments Portal. Employees also have the option to return to the Main Screen or Log Out of the account.<br><br>
 ![Screenshot 2024-11-10 210854](https://github.com/user-attachments/assets/c5117b2f-e6b8-4046-bd08-577edf993329)
 
 Payments Portal Screen: Once the employee chooses Payments Portal, they are navigated to the screen where they can view all international payments created by various customers. Once they are filled in, click continue and now a details form will display where the user must enter a Recipent's Name, Account Number, Bank Name, Branch Code, and lastly the Swift Code. <br>
