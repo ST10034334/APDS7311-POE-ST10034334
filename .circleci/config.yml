@@ -35,8 +35,8 @@ jobs:
           name: List files in current directory
           command: ls -la
       - run:
-          name: Recursive list of all files
-          command: find . -type f -print
+          name: List files in PART 3 directory recursively
+          command: ls -R "PART 3"
       - attach_workspace:
           at: ~/workspace
       - run: | 
