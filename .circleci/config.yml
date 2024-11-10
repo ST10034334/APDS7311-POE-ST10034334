@@ -54,13 +54,13 @@ jobs:
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART 3/frontend,PART 3/backend"
 
-    postman:
-      executor: newman/postman-newman-docker
-      steps:
-        - checkout
-        - newman/newman-run:
-            collection: ./api-postman-test/RenBank API Tests - Customer.postman_collection.json
-            environment: ./Customer.postman_environment.json
+  postman:
+    executor: newman/postman-newman-docker
+    steps:
+      - checkout
+      - newman/newman-run:
+          collection: ./api-postman-test/RenBank API Tests - Customer.postman_collection.json
+          environment: ./Customer.postman_environment.json
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
