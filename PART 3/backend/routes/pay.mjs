@@ -1,4 +1,4 @@
-{/* The IIE (2024) demonstrates how to work with routes - Pay Route */}
+// The IIE (2024) demonstrates how to work with routes - Pay Route.
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
@@ -94,16 +94,16 @@ async (req, res) => {
     //Creates a new document from the request body.
     let newDocument = {
         user: userId, //User information.
-        amount: req.body.amount, //Payment amount.
-        currency: req.body.currency, //Selected currency.
-        provider: req.body.provider, //Selected provider.
-        recipient_name: req.body.recipient_name, //Recipient's full name.
-        recipient_account_number: req.body.recipient_account_number, //Recipient's account number.
-        recipient_bank_name: req.body.recipient_bank_name, //Recipient's bank name.
-        recipient_bank_branch_code: req.body.recipient_bank_branch_code, //Recipient's bank code.
-        swift_code : req.body.swift_code, //SWIFT code.
-        verified : req.body.verified, //Default payment verification.
-        submit_swift : req.body.submit_swift //Default submit to SWIFT.
+        amount: req.body.amount.toString(), //Payment amount.
+        currency: req.body.currency.toString(), //Selected currency.
+        provider: req.body.provider.toString(), //Selected provider.
+        recipient_name: req.body.recipient_name.toString(), //Recipient's full name.
+        recipient_account_number: req.body.recipient_account_number.toString(), //Recipient's account number.
+        recipient_bank_name: req.body.recipient_bank_name.toString(), //Recipient's bank name.
+        recipient_bank_branch_code: req.body.recipient_bank_branch_code.toString(), //Recipient's bank code.
+        swift_code : req.body.swift_code.toString(), //SWIFT code.
+        verified : req.body.verified.toString(), //Default payment verification.
+        submit_swift : req.body.submit_swift.toString() //Default submit to SWIFT.
     };
 
     //Retrieves the "Payments" collection from the database.
@@ -238,7 +238,7 @@ router.get("/myPayments", checkAuthorisation, async (req, res) => {
 export default router;
 
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 
 Digital Ocean. 2024. How to Handle Form Inputs Efficiently with Express-Validator in ExpressJs, 19 January 2024 (Version 1.0)
 [Source code] https://www.digitalocean.com/community/tutorials/how-to-handle-form-inputs-efficiently-with-express-validator-in-express-js
@@ -246,4 +246,4 @@ Digital Ocean. 2024. How to Handle Form Inputs Efficiently with Express-Validato
 
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
-*/}
+*/

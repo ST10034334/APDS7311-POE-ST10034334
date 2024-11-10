@@ -1,4 +1,4 @@
-{/* The IIE (2024) demonstrates the server.mjs file - Setting up the server. */}
+// The IIE (2024) demonstrates the server.mjs file - Setting up the server. 
 import http from "http";
 import helmet from "helmet";
 import express from "express";
@@ -64,11 +64,11 @@ console.log(PORT);
 server.listen(PORT);
 
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
 
 Zanini, A. 2023. Using Helmet in Node.js to secure your application. LogRocket, 8 March 2023 (Version 1.0)
 [Source code] https://blog.logrocket.com/using-helmet-node-js-secure-application/
 (Accessed 5 October 2024).
-*/}
+*/

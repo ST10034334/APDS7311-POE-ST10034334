@@ -1,4 +1,4 @@
-{/* The IIE (2024) demonstrates how to work with routes - User Route */}
+// The IIE (2024) demonstrates how to work with routes - User Route.
 import express from "express";
 import db from "../db/conn.mjs";
 import { ObjectId } from "mongodb";
@@ -69,18 +69,18 @@ async (req, res) => {
 
     //Creates a new document from the request body.
     let newDocument = {
-        name: req.body.name, //User's name.
-        id_number: req.body.id_number, //User's ID number.
-        account_number: req.body.account_number, //User's account number.
+        name: req.body.name.toString(), //User's name.
+        id_number: req.body.id_number.toString(), //User's ID number.
+        account_number: req.body.account_number.toString(), //User's account number.
         password: (await password).toString(), //User's hashed password.
-        role: req.body.role //User's assigned role.
+        role: req.body.role.toString() //User's assigned role.
     };
 
     //Retrieves the "Users" collection from the database.
     let collection = await db.collection("Users");
 
     //Attempts to find a user document that has the same account number (no duplicate account numbers allowed).
-    let user = await collection.findOne({ account_number: req.body.account_number });
+    let user = await collection.findOne({ account_number: req.body.account_number.toString() });
 
     if (user) {
         //Sends a 409 (Conflict) response if the account number already exits.
@@ -189,7 +189,7 @@ else{
 export default router;
 
 
-{/* REFERENCE LIST
+/* REFERENCE LIST
 
 Digital Ocean. 2024. How to Handle Form Inputs Efficiently with Express-Validator in ExpressJs, 19 January 2024 (Version 1.0)
 [Source code] https://www.digitalocean.com/community/tutorials/how-to-handle-form-inputs-efficiently-with-express-validator-in-express-js
@@ -198,4 +198,4 @@ Digital Ocean. 2024. How to Handle Form Inputs Efficiently with Express-Validato
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
 
-*/}
+*/

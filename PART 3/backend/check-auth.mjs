@@ -1,4 +1,4 @@
-{/* The IIE (2024) demonstrates the check-auth.mjs - Validation of User Token/Session */}
+// The IIE (2024) demonstrates the check-auth.mjs - Validation of User Token/Session.
 import jwt from 'jsonwebtoken';
 
 const checkAuthorisation = (req,res,next) =>
@@ -30,7 +30,7 @@ const checkAuthorisation = (req,res,next) =>
 export default checkAuthorisation;
 
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
-*/}
+*/

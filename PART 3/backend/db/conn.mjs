@@ -1,4 +1,4 @@
-{/* The IIE (2024) demonstrates the conn.mjs file - Connection with MongoDB database. */}
+// The IIE (2024) demonstrates the conn.mjs file - Connection with MongoDB database.
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
 
@@ -24,7 +24,7 @@ try {
 }
 
 //Selects the "RenbankDB" database from the MongoDB client.
-let db = client.db("RenbankDB");
+const db = client.db("RenbankDB");
 try {
     //Retrieves and logs the collection names.
     const collections = await db.collections();
@@ -37,7 +37,7 @@ try {
 export default db;
 
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
-*/}
+*/
