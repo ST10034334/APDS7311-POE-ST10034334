@@ -88,7 +88,7 @@ Employees use static login and are pre-registered onto the system, but are still
 Main Screen (Logged In): Now that the employee, "Matthew" has logged in, he is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: Payments Portal. Employees also have the option to return to the Main Screen or Log Out of the account.<br><br>
 ![Screenshot 2024-11-10 210854](https://github.com/user-attachments/assets/c5117b2f-e6b8-4046-bd08-577edf993329)
 
-Payments Portal Screen: Once the employee chooses Payments Portal, they are navigated to the screen where they can view all international payments created by various customers. Once they are filled in, click continue and now a details form will display where the user must enter a Recipent's Name, Account Number, Bank Name, Branch Code, and lastly the Swift Code. <br>
+Payments Portal Screen: Once the employee chooses Payments Portal, they are navigated to the screen where they can view all international payments created by various customers. There are filters Each payment has the ability to be verified after the employee has checked the payee account information and SWIFT code, by simply clicking the "Verify" button. Once the payment has been verified, they can now submit this payment to SWIFT by simply clicking the "Submit to SWIFT" button.  <br><br>
 
 ![Screenshot 2024-11-10 205845](https://github.com/user-attachments/assets/8e0022fb-c47e-46dc-bdc2-5d3291007a16)
 ![Screenshot 2024-11-10 205857](https://github.com/user-attachments/assets/9fc116ce-9af7-42b7-b5f7-e475d03492ef)
