@@ -1,7 +1,6 @@
-{/* The IIE (2024) demonstrates how to work with routes - Auth Route */}
+//The IIE (2024) demonstrates how to work with routes - Auth Route.
 import express from "express";
 import db from "../db/conn.mjs";
-import { ObjectId } from "mongodb";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import { body, validationResult } from "express-validator";
@@ -11,8 +10,8 @@ import ExpressBrute from "express-brute";
 const router = express.Router(); 
 
 //Creates an in-memory store for brute-force protection to track login attempts.
-var store = new ExpressBrute.MemoryStore();
-var bruteforce = new ExpressBrute(store, {
+const store = new ExpressBrute.MemoryStore();
+const bruteforce = new ExpressBrute(store, {
 
     freeRetries: 5, //Number of allowed attempts before blocking.
     minTimeout: 2 * 60 * 1000, //Blocks for 15 minutes after exceeding attempts.
@@ -42,9 +41,9 @@ router.post("/register", [
 
     //Creates a new document from the request body.
     let newDocument = {
-        name: req.body.name, //User's name.
-        id_number: req.body.id_number, //User's ID number.
-        account_number: req.body.account_number, //User's account number.
+        name: req.body.name.toString(), //User's name.
+        id_number: req.body.id_number.toString(), //User's ID number.
+        account_number: req.body.account_number.toString(), //User's account number.
         password: (await password).toString(), //User's hashed password.
         role: "Customer" //Default role.
     };
@@ -93,7 +92,10 @@ async (req, res) => {
         let collection = await db.collection("Users");
 
         //Finds a user document that matches the provided user's name (full name) and account number.
-        let user = await collection.findOne({ name, account_number });
+        let user = await collection.findOne({
+            name: name.toString(),
+            account_number: account_number.toString() 
+        });
 
         if (!user) {
             //Sends a 404 (Not found) response if the user is not found.
@@ -130,7 +132,7 @@ async (req, res) => {
 //Exports the router to be used in other parts of the application.
 export default router;
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 
 Digital Ocean. 2024. How to Handle Form Inputs Efficiently with Express-Validator in ExpressJs, 19 January 2024 (Version 1.0)
 [Source code] https://www.digitalocean.com/community/tutorials/how-to-handle-form-inputs-efficiently-with-express-validator-in-express-js
@@ -142,4 +144,4 @@ freeCodeCamp. 2024. How to Hash Passwords with bcrypt in Node.js, 3 April 2024 (
 
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.    
-*/}
+*/
