@@ -54,7 +54,7 @@ jobs:
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART 3/frontend,PART 3/backend"
 
-  postman:
+ postman:
     executor: newman/postman-newman-docker
     steps:
       - checkout
