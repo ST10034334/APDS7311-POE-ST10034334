@@ -27,9 +27,16 @@ jobs:
       - image: sonarsource/sonar-scanner-cli
     resource_class: small
     steps:
-      - run: 
-          name: List files
+       - checkout  # This step pulls in your repo code
+      - run:
+          name: Print working directory
+          command: pwd
+      - run:
+          name: List files in current directory
           command: ls -la
+      - run:
+          name: Recursive list of all files
+          command: find . -type f -print
       - attach_workspace:
           at: ~/workspace
       - run: | 
