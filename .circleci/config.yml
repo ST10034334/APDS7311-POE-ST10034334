@@ -39,8 +39,8 @@ jobs:
           name: List files in current directory
           command: ls -la
       - run:
-          name: List files in PART 3 directory recursively
-          command: ls -R "PART 3"
+          name: List files in PART-3 directory recursively
+          command: ls -R "PART-3"
       - attach_workspace:
           at: ~/workspace
       - run: | 
@@ -54,7 +54,7 @@ jobs:
           -Dsonar.exclusions="**/android/**,**/ios/**,**/node_modules/**" \
           -Dsonar.login="$SONAR_TOKEN" \
           -Dsonar.branch.name="$SONAR_BRANCH" \
-          -Dsonar.sources="PART 3/frontend,PART 3/backend"
+          -Dsonar.sources="PART-3/frontend,PART-3/backend"
 
   #postman-customer:
     #executor: newman/postman-newman-docker
