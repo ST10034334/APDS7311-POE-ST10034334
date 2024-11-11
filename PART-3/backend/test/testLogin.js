@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+
 const axios = require('axios');
 
 //Loads environment variables from .env file.
