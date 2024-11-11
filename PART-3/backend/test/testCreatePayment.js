@@ -13,7 +13,8 @@ async function testCreatePayment() {
       recipient_bank_name: 'Bank of America',
       recipient_bank_branch_code: '123456',
       swift_code: 'BOFAUS3NXXX',
-      verified: true
+      verified: false,
+      submit_swift: false
     }, {
       headers: {
         Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZDkxN2U4OWIyM2E3OWFkYThhMjcxIiwicm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzMxMzI3NzYxLCJleHAiOjE3MzEzMzEzNjF9.jRuMT5JjhPlLlZHsSGxH7ZtzLWiU7q_l59jL7EoILH4' 
