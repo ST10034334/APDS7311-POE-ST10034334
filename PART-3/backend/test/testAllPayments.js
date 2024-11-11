@@ -10,12 +10,9 @@ async function testAllPayments() {
       }
     });
 
-    // Check if payments were returned
+    //Check if payments were returned
     if (response.data.length > 0) {
-      console.log(true);  // Payments found
-      process.exit(0)
-    } else {
-      console.log(true); // No payments found
+      console.log(true);  //Payments found
       process.exit(0)
     }
     
