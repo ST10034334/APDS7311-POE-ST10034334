@@ -13,8 +13,10 @@ async function testAllPayments() {
     // Check if payments were returned
     if (response.data.length > 0) {
       console.log(true);  // Payments found
+      process.exit(0)
     } else {
       console.log(true); // No payments found
+      process.exit(0)
     }
     
   } catch (error) {
@@ -27,7 +29,8 @@ async function testAllPayments() {
     }
 
     // Output false for any errors
-    console.log(true);
+    console.log(false);
+    process.exit(1)
   }
 
 
