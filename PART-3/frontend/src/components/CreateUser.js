@@ -12,7 +12,7 @@ import "../assets/mobirise/css/mbr-additional.css?v=ZR21yi";
 import DOMPurify from "dompurify";
 
 //CreateUser() function defines a component for the CreateUser page.
-{/* The IIE (2024) demonstrates how to work with form submissions - CreateUser Page */}
+//The IIE (2024) demonstrates how to work with form submissions - CreateUser Page.
 //This component takes in a triggerError function to trigger the Error page where appropriate.
 //Kim (2022) demonstrates how to use and pass functions as props.
 export default function CreateUser({triggerError}) {
@@ -212,7 +212,7 @@ export default function CreateUser({triggerError}) {
     }
   };
 
-  { /* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */ }
+  // Site made with Mobirise Website Builder v5.9.18, https://mobirise.com 
   return (
     <div>
       <br></br>
@@ -338,7 +338,7 @@ export default function CreateUser({triggerError}) {
   );
 }
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 
 Kim, K. 2022. How to Use and Pass Functions as Props— React. Medium, 21 January 2022 (Version 1.0)
 [Soure code] https://medium.com/@kkm2059/how-to-use-and-pass-functions-as-props-react-ff677f5bca0b
@@ -354,4 +354,4 @@ TutorialsPoint. 2023. RegEx in ReactJS, 14 September 2023 (Version 2.0)
 W3Schools. 2024. Window setTimeout(), 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/jsref/met_win_settimeout.asp
 (Accessed 3 October 2024). 
-*/}
+*/

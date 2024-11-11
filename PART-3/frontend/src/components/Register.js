@@ -12,9 +12,7 @@ import "../assets/mobirise/css/mbr-additional.css?v=ZR21yi";
 import DOMPurify from "dompurify";
 
 //Register() function defines a component for the Register page.
-{
-  /* The IIE (2024) demonstrates how to work with form submissions - Register Page */
-}
+//The IIE (2024) demonstrates how to work with form submissions - Register Page.
 export default function Register() {
   const navigate = useNavigate();
   const [error, setError] = useState("");
@@ -167,9 +165,7 @@ export default function Register() {
     }
   };
 
-  {
-    /* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */
-  }
+ // Site made with Mobirise Website Builder v5.9.18, https://mobirise.com 
   return (
     <div>
       <br></br>
@@ -280,8 +276,7 @@ export default function Register() {
   );
 }
 
-{
-  /* REFERENCE LIST:
+/* REFERENCE LIST:
 The IIE. 2024. LAB GUIDE 2024 [APDS7311/w Learn]. The Independent Institute of Education:
 Unpublished.   
 
@@ -293,4 +288,3 @@ W3Schools. 2024. Window setTimeout(), 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/jsref/met_win_settimeout.asp
 (Accessed 3 October 2024). 
 */
-}

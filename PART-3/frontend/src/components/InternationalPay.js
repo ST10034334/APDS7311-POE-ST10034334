@@ -13,7 +13,7 @@ import '../assets/mobirise/css/mbr-additional.css?v=ZR21yi';
 
 
 //InternationalPay() function defines a component for the International Pay page.
-/* The IIE (2024) demonstrates how to work with form submissions - International Pay Page */
+// The IIE (2024) demonstrates how to work with form submissions - International Pay Page.
 //This component takes in a triggerError function to trigger the Error page where appropriate.
 //Kim (2022) demonstrates how to use and pass functions as props.
 export default function InternationalPay ({triggerError}) {
@@ -319,7 +319,7 @@ const handleNextFields = (e) => {
     }
 
 
-   {/* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */}
+   // Site made with Mobirise Website Builder v5.9.18, https://mobirise.com
     return (
 
     <body> 
@@ -455,7 +455,7 @@ const handleNextFields = (e) => {
     );
 };
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 freeCodeCamp. 2022. How to Use localStorage with React Hooks to Set and Get Items, 22 February 2022 (Version 1.0)
 [Source code] https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/
 (Accessed 2 October 2024).
@@ -486,4 +486,4 @@ Watson, J. 2022. React Select, 2022 (Verison 1.0)
 [Source code] https://react-select.com/home
 (Accessed 4 October 2024).
 
- */}
+ */

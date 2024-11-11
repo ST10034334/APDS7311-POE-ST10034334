@@ -12,7 +12,7 @@ import '../assets/mobirise/css/mbr-additional.css?v=ZR21yi';
  //PaymentCreation() function defines a component for the Payment Creation page.
 export default function PaymentCreation () {
 
-{/* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */}
+//Site made with Mobirise Website Builder v5.9.18, https://mobirise.com 
     return (
 <body> 
 <br></br>
@@ -37,8 +37,8 @@ export default function PaymentCreation () {
 </body>
 );
 };
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 W3Schools. 2024. Styling React Using CSS, 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/react/react_css.asp
 (Accessed 5 October 2024).
-*/}
+*/

@@ -1,5 +1,8 @@
 const axios = require('axios');
 
+//Loads environment variables from .env file.
+dotenv.config();
+
 // Function to delay execution for a specified number of milliseconds
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -10,9 +13,9 @@ async function testLogin(retryCount = 3) {
   try {
     // Sending a POST request with hardcoded credentials to the /login endpoint
     const response = await axios.post('https://renbank-api.oa.r.appspot.com/auth/login/', {
-      name: 'Joelene Peters',               
-      account_number: '4453467821',
-      password: 'JPGreenbug45^'
+      name: process.env.API_NAME,
+      account_number: process.env.API_ACCOUNT_NUMBER,
+      password: process.env.API_PASSWORD,
     });
 
     // Check if the response has a 'name' field and its value is 'Joelene Peters'

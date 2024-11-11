@@ -14,7 +14,7 @@ import '../assets/mobirise/css/mbr-additional.css?v=ZR21yi';
  //the appropriate error message to the user.
 export default function Error ({errorMessage}) {
 
-{/* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */}
+//Site made with Mobirise Website Builder v5.9.18, https://mobirise.com
     return (
 <body> 
 <br></br>
@@ -40,8 +40,8 @@ export default function Error ({errorMessage}) {
 </body>
 );
 };
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 W3Schools. 2024. Styling React Using CSS, 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/react/react_css.asp
 (Accessed 5 October 2024).
-*/}
+*/

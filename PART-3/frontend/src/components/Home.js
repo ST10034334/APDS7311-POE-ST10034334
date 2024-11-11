@@ -48,7 +48,7 @@ function Home () {
 
     }, [navigate]);
 
-{/* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */}
+// Site made with Mobirise Website Builder v5.9.18, https://mobirise.com
     return (
     <body> 
 

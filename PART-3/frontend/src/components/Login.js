@@ -12,9 +12,7 @@ import "../assets/mobirise/css/mbr-additional.css?v=ZR21yi";
 import DOMPurify from "dompurify";
 
 //Login() function defines a component for the Login page.
-{
-  /* The IIE (2024) demonstrates how to work with form submissions - Login Page */
-}
+//The IIE (2024) demonstrates how to work with form submissions - Login Page.
 export default function Login() {
   const navigateHome = useNavigate();
   const [error, setError] = useState("");
@@ -210,9 +208,7 @@ export default function Login() {
   }
   }
 
-  {
-    /* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */
-  }
+  //Site made with Mobirise Website Builder v5.9.18, https://mobirise.com
   return (
     <body>
       <br></br>
@@ -321,8 +317,7 @@ export default function Login() {
   );
 }
 
-{
-  /* REFERENCE LIST:
+/* REFERENCE LIST:
 
 Purohit, R. 2024. How to Use the Ternary Operator in React for Cleaner Code. DhiWise, 9 August 2024 (Version 2.0)
 [Source code] https://www.dhiwise.com/post/how-to-use-the-ternary-operator-in-react-for-cleaner-code
@@ -338,4 +333,3 @@ W3Schools. 2024. Window setTimeout(), 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/jsref/met_win_settimeout.asp
 (Accessed 3 October 2024).
 */
-}

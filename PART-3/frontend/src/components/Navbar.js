@@ -60,7 +60,7 @@ function Navbar() {
       window.location.reload();
     };
     
- {/* Site made with Mobirise Website Builder v5.9.18, https://mobirise.com */}
+// Site made with Mobirise Website Builder v5.9.18, https://mobirise.com
     return (
         <section className="menu menu2 cid-sFCw1qGFAI">
     
@@ -161,7 +161,7 @@ function Navbar() {
 
 export default Navbar;
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
     
 The IIE. 2024. LAB GUIDE 2024 [APDS7311 Learn]. The Independent Institute of Education: Unpublished.
 
@@ -172,4 +172,4 @@ W3Schools. 2024. React Conditional Rendering, 2024 (Version 1.0)
 W3Schools. 2024. Window setTimeout(), 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/jsref/met_win_settimeout.asp
 (Accessed 3 October 2024).
-*/}
+*/

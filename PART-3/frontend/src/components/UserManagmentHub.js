@@ -11,7 +11,7 @@ import '../assets/mobirise/css/mbr-additional.css?v=ZR21yi';
 
 
 //UserManagementHub() function defines a component for the UserManagementHub page.
-{/* The IIE (2024) demonstrates how to work with retrieving table data - UserManagementHub Page */}
+//The IIE (2024) demonstrates how to work with retrieving table data - UserManagementHub Page.
 //This component takes in a triggerError function to trigger the Error page where appropriate.
 //Kim (2022) demonstrates how to use and pass functions as props.
 function UserManagementHub ({triggerError}) {
@@ -312,7 +312,7 @@ async function handleDeletion (user){
 
 export default UserManagementHub;
 
-{/* REFERENCE LIST:
+/* REFERENCE LIST:
 freeCodeCamp. 2022. How to Use localStorage with React Hooks to Set and Get Items, 22 February 2022 (Version 1.0)
 [Source code] https://www.freecodecamp.org/news/how-to-use-localstorage-with-react-hooks-to-set-and-get-items/
 (Accessed 2 October 2024).
@@ -339,5 +339,5 @@ W3Schools. 2024. Window setTimeout(), 2024 (Version 1.0)
 [Source code] https://www.w3schools.com/jsref/met_win_settimeout.asp
 (Accessed 3 October 2024).
 
- */}
+ */
     
