@@ -1,8 +1,10 @@
 const axios = require('axios');
-const dotenv = require("../dotenv");
+const dotenv = require("dotenv");
 
 //Loads environment variables from .env file.
-dotenv.config();
+dotenv.config({ path: '../.env' });
+
+console.log(process.env.API_NAME + "," +  process.env.API_ACCOUNT_NUMBER)
 
 // Function to delay execution for a specified number of milliseconds
 function delay(ms) {
