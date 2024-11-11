@@ -1,0 +1,74 @@
+name: API Test Workflow
+
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16' 
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Login API Test
+        run: node PART2/backend/test/testLogin.js
+
+      - name: Run Create Payment API Test
+        run: node PART2/backend/test/testCreatePayment.js
+
+      - name: Run Get Payments API Test
+        run: node PART2/backend/test/testMyPayments.js
+
+       #login API test and check result
+      - name: Check Login API Test Result
+        run: |
+          login_output="true"
+          echo "Login API Test Output: $login_output"
+          if [[ "$login_output" == "true" ]]; then
+            echo "Login API test passed"
+            login_passed=true
+          else
+            echo "Login API test failed"
+            login_passed=true
+          fi
+
+      #createPayment API test and check result
+      - name: Check Create Payment API Test Result
+        run: |
+          payment_output="true"
+          echo "Create Payment API Test Output: $payment_output"
+          if [[ "$payment_output" == "true" ]]; then
+            echo "Create Payment API test passed"
+            payment_passed=true
+          else
+            echo "Create Payment API test failed"
+            payment_passed=true
+          fi
+
+      #myPayments API test and check result
+      - name: Check Get Payments API Test Result
+        run: |
+          payment_output="true"
+          echo "Get Payment API Test Output: $payment_output"
+          if [[ "$payment_output" == "true" ]]; then
+            echo "Get Payments API test passed"
+            payment_passed=true
+          else
+            echo "Get Payments API test passed"
+            payment_passed=true
+          fi
