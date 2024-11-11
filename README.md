@@ -16,6 +16,7 @@
   - [Installation](#installation)
 - [How to Use Renbank](#how-to-use-renbank)
 - [Renbank Tutorial and Security Videos](#renbank-tutorial-and-security-videos)
+- [Renbank Pipeline Screenshots and Postman Documentation](#renbank-pipeline-screenshots-and-postman-documentation)
 - [License](#license)
 - [Contact](#contact)
 - [Acknowledgements](#acknowledgements)
@@ -145,10 +146,15 @@ When the admin selects **User Management Hub**, they are directed to a screen wh
 ![User Management Hub 7](https://github.com/user-attachments/assets/2093d0c9-ef60-467c-8f34-1c8ba32766b3)
 
 
+# Renbank Pipeline Screenshots and Postman Documentation
+
+Here you can find the pipeline screenshots and postman documentation: https://drive.google.com/drive/folders/1GDXz_0r__I4BQSrytWcrRwLsJmfrvQmJ?usp=drive_link
+
 
 # Renbank Tutorial and Security Videos
 
 Here you can find the Renbank tutorial and security videos: https://drive.google.com/drive/folders/1GDXz_0r__I4BQSrytWcrRwLsJmfrvQmJ?usp=drive_link
+
 
 # License
 This project is licensed under the MIT License. See the LICENSE file for more details.
