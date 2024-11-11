@@ -47,9 +47,8 @@ The primary goal behind the development of RenBank was to create a secure and re
 
 ### Prerequisites
 Before you begin, ensure you have met the following requirements:
-- VS Code
 - VS Code Version 1.94
-- Basic knowledge of Python programming language
+- Basic knowledge of React
 
 # Installation
 To install the project, follow these steps:
