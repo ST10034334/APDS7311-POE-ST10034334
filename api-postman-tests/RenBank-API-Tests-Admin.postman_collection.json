@@ -1,0 +1,1446 @@
+{
+	"info": {
+		"_postman_id": "a031cd54-c860-43ae-8e03-b37eb348eb2b",
+		"name": "RenBank API Tests - Admin",
+		"description": "# 🚀 Get started here\n\nThis template guides you through CRUD operations (GET, POST, PUT, DELETE), variables, and tests.\n\n## 🔖 **How to use this template**\n\n#### **Step 1: Send requests**\n\nRESTful APIs allow you to perform CRUD operations using the POST, GET, PUT, and DELETE HTTP methods.\n\nThis collection contains each of these [request](https://learning.postman.com/docs/sending-requests/requests/) types. Open each request and click \"Send\" to see what happens.\n\n#### **Step 2: View responses**\n\nObserve the response tab for status code (200 OK), response time, and size.\n\n#### **Step 3: Send new Body data**\n\nUpdate or add new data in \"Body\" in the POST request. Typically, Body data is also used in PUT request.\n\n```\n{\n    \"name\": \"Add your name in the body\"\n}\n\n ```\n\n#### **Step 4: Update the variable**\n\nVariables enable you to store and reuse values in Postman. We have created a [variable](https://learning.postman.com/docs/sending-requests/variables/) called `base_url` with the sample request [https://postman-api-learner.glitch.me](https://postman-api-learner.glitch.me). Replace it with your API endpoint to customize this collection.\n\n#### **Step 5: Add tests in the \"Scripts\" tab**\n\nAdding tests to your requests can help you confirm that your API is working as expected. You can write test scripts in JavaScript and view the output in the \"Test Results\" tab.\n\n<img src=\"https://content.pstmn.io/fa30ea0a-373d-4545-a668-e7b283cca343/aW1hZ2UucG5n\" width=\"2162\" height=\"1530\">\n\n## 💪 Pro tips\n\n- Use folders to group related requests and organize the collection.\n    \n- Add more [scripts](https://learning.postman.com/docs/writing-scripts/intro-to-scripts/) to verify if the API works as expected and execute workflows.\n    \n\n## 💡Related templates\n\n[API testing basics](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9a37a28-055b-49cd-8c7e-97494a21eb54&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[API documentation](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=e9c28f47-1253-44af-a2f3-20dce4da1f18&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)  \n[Authorization methods](https://go.postman.co/redirect/workspace?type=personal&collectionTemplateId=31a9a6ed-4cdf-4ced-984c-d12c9aec1c27&sourceTemplateId=ddb19591-3097-41cf-82af-c84273e56719)",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "37378239",
+		"_collection_link": "https://renbank-team.postman.co/workspace/RenBank-Team-Workspace~389b156c-55fa-42a9-8c01-10a80a49b724/collection/37378239-a031cd54-c860-43ae-8e03-b37eb348eb2b?action=share&source=collection_link&creator=37378239"
+	},
+	"item": [
+		{
+			"name": "Auth Endpoint",
+			"item": [
+				{
+					"name": "Login Tests",
+					"item": [
+						{
+							"name": "Valid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"//Test 1: Verify status code is 200 (Successful login)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains token\r",
+											"pm.test(\"Response contains token\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"token\");\r",
+											"});\r",
+											"\r",
+											"//Sets the 'jwt_token' environment variable.\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set(\"jwt_token\", jsonData.token);\r",
+											"\r",
+											"//Test 3: Verify response contains role\r",
+											"pm.test(\"Response contains role\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"role\");\r",
+											"});\r",
+											"\r",
+											"//Test 4: Verify response contains name\r",
+											"pm.test(\"Response contains name\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"name\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Jamie Thompson\",\r\n  \"account_number\": \"32849175\",\r\n  \"password\": \"JTSharks65!\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user can successfully login with valid input data.\n\n**Expected Results:**\n\n- Status Code: `200 OK`\n    \n- Response contains a success message and the `token`, `role`, and `name` of the currently logged-in user."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 400 (Bad Request) for invalid login input\r",
+											"pm.test(\"Verify status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify 'Name is required' error message\r",
+											"pm.test(\"Verify 'Name is required' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const nameError = jsonData.errors.find(err => err.path === 'name');\r",
+											"    pm.expect(nameError).to.have.property('msg', 'Name is required.');\r",
+											"});\r",
+											"\r",
+											"//Test 3: Verify 'Account number must be at least 8 digits long' error message\r",
+											"pm.test(\"Verify 'Account number must be at least 8 digits long' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const accountNumberError = jsonData.errors.find(err => err.path === 'account_number');\r",
+											"    pm.expect(accountNumberError).to.have.property('msg', 'Account number must be at least 8 digits long.');\r",
+											"});\r",
+											"\r",
+											"//Test 4: Verify 'Password must be at least 8 characters long' error message\r",
+											"pm.test(\"Verify 'Password must be at least 8 characters long' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const passwordError = jsonData.errors.find(err => err.path === 'password');\r",
+											"    pm.expect(passwordError).to.have.property('msg', 'Password must be at least 8 characters long.');\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"\",\r\n  \"account_number\": \"7\",\r\n  \"password\": \"MS32kin\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot login with invalid input data.\n\n**Expected Results:**\n\n- Status Code: `400 Bad request`\n    \n- Response contains error messages for each invalid input data."
+							},
+							"response": []
+						},
+						{
+							"name": "Incorrect Password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Authentication Failed! Incorrect password' message\r",
+											"pm.test(\"Response contains 'Authentication Failed! Incorrect password' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('message', 'Authentication Failed! Incorrect password.');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Matthew Simmons\",\r\n  \"account_number\": \"6745678822\",\r\n  \"password\": \"JTSharks65!\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot login with an incorrect password.\n\n**Expected Results:**\n\n- Status Code: `401 Unauthorized`\n    \n- Response contains an error messages stating `'Authentication Failed! Incorrect password.'`"
+							},
+							"response": []
+						},
+						{
+							"name": "No User Exists",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 404 (Not found)\r",
+											"pm.test(\"Verify status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Authentication Failed! User doesn't exist' message\r",
+											"pm.test(\"Response contains 'Authentication Failed! User doesn't exist' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property('message', 'Authentication Failed! User doesn\\'t exist.');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Poppy Jones\",\r\n  \"account_number\": \"674523298\",\r\n  \"password\": \"PJHaywood42$\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot login with an account that doesn't exist.\n\n**Expected Results:**\n\n- Status Code: `404 Not found`\n    \n- Response contains an error messages stating `'Authentication Failed! User doesn't exist.'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **user login** (`POST /auth/login`) functionality of the API. The tests in this folder aim to validate that the user login process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Login**: Verifying that a user can successfully login with valid data, and that the system responds with a **200 status code** and returns necessary details like `token`, `role`, and `name`.\n    \n2. **Incorrect Fields**: Testing how the API handles cases where one or more required fields (like `name`, `account_number`, or `password`) are incorrect, expecting the system to return a **400 status code** and an appropriate error message.\n    \n3. **Incorrect Password**: Testing the scenario where a user tries to login with an incorrect password, expecting the API to return a **401 status code** and an error message (e.g., `Incorrect password`).\n    \n4. **No User Found**: Testing the scenario where a user tries to login with an account that doesn't exist, expecting the API to return a **404 status code** and an error message (e.g., `User doesn't exist`)."
+				}
+			],
+			"description": "This folder contains all the test cases related to the **user authentication** functionality of the API, for a user with the 'Admin' role, which includes **user login** (`POST /auth/login`). The tests in this folder aim to validate that the user authentication process works as expected for both valid and invalid inputs."
+		},
+		{
+			"name": "Pay Endpoint",
+			"item": [
+				{
+					"name": "All Payments Tests",
+					"item": [
+						{
+							"name": "All Payments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful Response)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										""
+									]
+								},
+								"description": "**Test Objective:** Ensure that an `Admin` or `Employee` can successfully view all international payments created.\n\n**Expected Results:**\n\n- Status Code: `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										""
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot view all international payments created withour proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **viewing of all international payments** functionality (`GET /pay/`) of the API. The tests in this folder are designed to validate that the process of viewing all international payments operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **All Payments**: Verifying that a user can successfully view all payments, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
+				{
+					"name": "Update Verification Tests",
+					"item": [
+						{
+							"name": "Valid Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful Response)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"verified\" : \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/updateVerification/672cbe4f9ddca9697e9eaeb9",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"updateVerification",
+										"672cbe4f9ddca9697e9eaeb9"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user can successfully verify an international payment.\n\n**Expected Results:**\n\n- Status Code: `200 OK`\n    \n- Response contains a `modifiedCount` of `1`, indicating the field was successfully updated/modified."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"verified\" : \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/updateVerification/672cbe4f9ddca9697e9eaeb9",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"updateVerification",
+										"672cbe4f9ddca9697e9eaeb9"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot be updated without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to **international payment verified field update** functionality (`PATCH/pay/updateVerification/:id`) of the API. The tests in this folder are designed to validate that the process of validating international payments operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **Valid Verified Update**: Verifying that a user can successfully verify payments, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
+				{
+					"name": "Update Submission Tests",
+					"item": [
+						{
+							"name": "Valid Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful Response)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"submit_swift\" : \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/updateSubmission/672cbe4f9ddca9697e9eaeb9",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"updateSubmission",
+										"672cbe4f9ddca9697e9eaeb9"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user can successfully submit an international payment to SWIFT.\n\n**Expected Results:**\n\n- Status Code: `200 OK`\n    \n- Response contains a `modifiedCount` of `1`, indicating the field was successfully updated/modified."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"submit_swift\" : \"true\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/updateSubmission/672cbe4f9ddca9697e9eaeb9",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"updateSubmission",
+										"672cbe4f9ddca9697e9eaeb9"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot submit international payments to SWIFT without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to **international payment submit to SWIFT field update** functionality (`PATCH/pay/updateSubmission/:id`) of the API. The tests in this folder are designed to validate that the process of submitting international payments to SWIFT operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **Valid Submit SWIFT Update**: Verifying that a user can successfully submit payments to SWIFT, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				}
+			],
+			"description": "This folder contains all the test cases related to the international payments functionality of the API, for a user with the 'Admin' role, which includes **viewing all payments**, **verifying payments**, **and submitting payments to SWIFT** (`GET /pay/, PATCH /pay/updateVerification/:id, PATCH /pay/updateSubmission/:id`) . The tests in this folder aim to validate that the international payment process works as expected for both valid and invalid inputs."
+		},
+		{
+			"name": "User Endpoint",
+			"item": [
+				{
+					"name": "All Users Tests",
+					"item": [
+						{
+							"name": "All Users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful Response)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										""
+									]
+								},
+								"description": "**Test Objective:** Ensure that an `Admin` can successfully view all user accounts created.\n\n**Expected Results:**\n\n- Status Code: `200 OK`"
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										""
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot view all user accounts created without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **viewing of all users** functionality (`GET /user/`) of the API. The tests in this folder are designed to validate that the process of viewing all users operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **All Users**: Verifying that an admin can successfully view all users on system, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
+				{
+					"name": "Create User Tests",
+					"item": [
+						{
+							"name": "Valid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 201 (Successful registration)\r",
+											"pm.test(\"Verify status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify response contains insertedId within the 'results' object\r",
+											"pm.test(\"Response contains insertedId\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.results).to.have.property(\"insertedId\");\r",
+											"});\r",
+											"\r",
+											"//Sets the 'inserted_id' environment variable.\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"pm.environment.set(\"inserted_id\", jsonData.results.insertedId);\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Mary Joe\",\r\n  \"id_number\": \"0209015678123\",\r\n  \"account_number\": \"76845621\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"Customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/createUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"createUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user can successfully be created with valid input data.\n\n**Expected Results:**\n\n- Status Code: `201 Created`\n    \n- Response contains a success message and the `insertedId` of the newly created user."
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Input",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 400 (Bad Request) for invalid registration input\r",
+											"pm.test(\"Verify status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify 'ID number must only contain digits' error message\r",
+											"pm.test(\"Verify 'ID number must only contain digits' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const idNumberError = jsonData.errors.find(err => err.path === 'id_number');\r",
+											"    pm.expect(idNumberError).to.have.property('msg', 'ID number must only contain digits.');\r",
+											"});\r",
+											"\r",
+											"//Test 3: Verify 'Account number must be at least 8 digits long' error message\r",
+											"pm.test(\"Verify 'Account number must be at least 8 digits long\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const accountNumberError = jsonData.errors.find(err => err.path === 'account_number');\r",
+											"    pm.expect(accountNumberError).to.have.property('msg', 'Account number must be at least 8 digits long.');\r",
+											"});\r",
+											"\r",
+											"//Test 4: Verify 'Role is required' error message\r",
+											"pm.test(\"Verify 'Role is required' error\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const roleError = jsonData.errors.find(err => err.path === 'role');\r",
+											"    pm.expect(roleError).to.have.property('msg', 'Role is required.');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Mary Joe\",\r\n  \"id_number\": \"Hello\",\r\n  \"account_number\": \"745\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/createUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"createUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot be created with invalid input data.\n\n**Expected Results:**\n\n- Status Code: `400 Bad request`\n    \n- Response contains error messages for each invalid input data."
+							},
+							"response": []
+						},
+						{
+							"name": "Duplicate Account",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 409 (Conflict) for duplicate user registration\r",
+											"pm.test(\"Verify status code is 409\", function () {\r",
+											"    pm.response.to.have.status(409);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify response message is \"Creation Failed. Account Number already exists.\"\r",
+											"pm.test(\"Response contains appropriate error message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\").eql(\"Creation Failed. Account Number already exists.\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Mary Joe\",\r\n  \"id_number\": \"0209015678123\",\r\n  \"account_number\": \"32849175\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"Customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/createUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"createUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot be created with a duplicate account.\n\n**Expected Results:**\n\n- Status Code: `409 Conflict`\n    \n- Response contains an error messages stating `'Creation Failed. Account Number already exists.'`"
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Mary Joe\",\r\n  \"id_number\": \"0209015678123\",\r\n  \"account_number\": \"74523135\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"Customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/createUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"createUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot create a user account without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **user creation** (`POST /user/createUser`) functionality of the API. The tests in this folder aim to validate that the user creation process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Creation**: Verifying that a user can successfully be created with valid data, and that the system responds with a **201 status code** and returns necessary details like `insertedId`.\n    \n2. **Incorrect Fields**: Testing how the API handles cases where one or more required fields (like `name`, `id_number`, or `password`) are incorrect, expecting the system to return a **400 status code** and an appropriate error message.\n    \n3. **Duplicate Account**: Testing the scenario where attempting to create a user account with an already existing `account_number`, expecting the API to return a **409 status code**, and an error message (e.g., `Account number already exists`).\n    \n4. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
+				{
+					"name": "Update User Tests",
+					"item": [
+						{
+							"name": "Valid Update",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful Response)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Joelene Smithers\",\r\n  \"id_number\": \"0209115674068\", \r\n  \"account_number\": \"4453467821\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"Customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/updateUser/66fd917e89b23a79ada8a271",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"updateUser",
+										"66fd917e89b23a79ada8a271"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"name\": \"Joelene Smithers\",\r\n  \"id_number\": \"0209115674068\", \r\n  \"account_number\": \"4453467821\",\r\n  \"password\": \"MJCrocodile43@\",\r\n  \"role\": \"Customer\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/pay/updateVerification/672cbe4f9ddca9697e9eaeb9",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"pay",
+										"updateVerification",
+										"672cbe4f9ddca9697e9eaeb9"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot verify international payments without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to **user update** functionality (`PATCH /user/updateUser/:id`) of the API. The tests in this folder are designed to validate that the process of updating a user operates correctly for both valid and invalid inputs. It includes tests for:\n\n1. **Valid Update**: Verifying that a user can successfully be updated, and that the system responds with a **200 status code**.\n    \n2. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				},
+				{
+					"name": "Remove User Tests",
+					"item": [
+						{
+							"name": "Valid Removal",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 200 (Successful removal)\r",
+											"pm.test(\"Verify status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"//Test 2: Verify response contains 'deletedCount' of '1' message\r",
+											"pm.test(\"Response contains 'deletedCount' of '1' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"deletedCount\", 1);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userID\" : \"{{inserted_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/removeUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"removeUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user can successfully deleted with valid input data.\n\n**Expected Results:**\n\n- Status Code: `200 OK`\n    \n- Response contains a `deletedCount` of `1`."
+							},
+							"response": []
+						},
+						{
+							"name": "No User Found",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 404 (Not found)\r",
+											"pm.test(\"Verify status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'User not found' message\r",
+											"pm.test(\"Response contains 'User not found' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"User not found.\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{jwt_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userID\" : \"66fd917e89b23a79ada8a27a\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/removeUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"removeUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot be deleted unless found.\n\n**Expected Results:**\n\n- Status Code: `404 (Not found)`\n    \n- Response contains an error messages stating `'User not found.'`"
+							},
+							"response": []
+						},
+						{
+							"name": "Invalid Token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Test 1: Verify status code is 401 (Unauthorized)\r",
+											"pm.test(\"Verify status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"//Test 2: Verify response contains 'Token Invalid' message\r",
+											"pm.test(\"Response contains 'Token Invalid' message\", function () {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.have.property(\"message\", \"Token Invalid!\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"userID\" : \"{{inserted_id}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://renbank-api.oa.r.appspot.com/user/removeUser",
+									"protocol": "https",
+									"host": [
+										"renbank-api",
+										"oa",
+										"r",
+										"appspot",
+										"com"
+									],
+									"path": [
+										"user",
+										"removeUser"
+									]
+								},
+								"description": "**Test Objective:** Ensure that a user cannot be deleted without proper authentication.\n\n**Expected Results:**\n\n- Status Code: `401 (Unauthorized)`\n    \n- Response contains an error messages stating `'Token Invalid!'`"
+							},
+							"response": []
+						}
+					],
+					"description": "This folder contains all the test cases related to the **user removal** (`DELETE /user/removeUser`) functionality of the API. The tests in this folder aim to validate that the user deletion process works as expected for both **valid and invalid** inputs. It includes tests for:\n\n1. **Valid Removal**: Verifying that a user can successfully be removed with valid data, and that the system responds with a **200 status code** and returns necessary details like `deletedCount.`\n    \n2. **No User Exists**: Testing the scenario where attempting to delete a user account that doesn't exist, expecting the API to return a **404 status code**, and an error message (e.g., `User not found.`).\n    \n3. **Invalid Token**: Testing how the API handles cases where a user hasn't been authenticated, expecting the system to return a **401 status code** and an appropriate error message."
+				}
+			],
+			"description": "This folder contains all the test cases related to the user management functionality of the API, where the Admin has control over user accounts, including **viewing all users**, **user creation**, **user updates**, and **removing user accounts** (GET `/user/`, POST `/user/createUser`, PATCH `/user/updateUser/:id`, PATCH `/pay/updateSubmission/:id`, DELETE `/user/removeUser`) . The tests in this folder aim to validate that the user management process works as expected for both valid and invalid inputs."
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "id",
+			"value": "1"
+		},
+		{
+			"key": "base_url",
+			"value": "https://postman-rest-api-learner.glitch.me/"
+		}
+	]
+}
