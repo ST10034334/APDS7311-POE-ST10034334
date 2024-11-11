@@ -40,7 +40,8 @@ The primary goal behind the development of RenBank was to create a secure and re
 
 ## Architypes
 
-![Diagram](https://github.com/VCDN-2024/opsc7312-part-2-ST10034334/blob/main/docs/assets/API_Map_APDS7311_POE.jpg)
+![Diagram]<img width="379" alt="image" src="https://github.com/user-attachments/assets/2a5a9ea5-da78-4505-af89-95344d551962">
+
 
 ## Getting Started
 
