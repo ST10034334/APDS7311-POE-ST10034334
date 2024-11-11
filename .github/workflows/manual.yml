@@ -24,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm install
+        working-directory: PART-3/backend
 
       - name: Run Login API Test
         run: node PART-3/backend/test/testLogin.js
