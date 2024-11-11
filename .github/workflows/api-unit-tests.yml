@@ -48,7 +48,7 @@ jobs:
             login_passed=true
           else
             echo "Login API test failed"
-            login_passed=true
+            login_passed=false
           fi
 
       #createPayment API test and check result
@@ -61,7 +61,7 @@ jobs:
             payment_passed=true
           else
             echo "Create Payment API test failed"
-            payment_passed=true
+            payment_passed=false
           fi
 
       #myPayments API test and check result
@@ -74,7 +74,7 @@ jobs:
             payment_passed=true
           else
             echo "Get Payments API test passed"
-            payment_passed=true
+            payment_passed=false
           fi
 
       #allPayments API test and check result
@@ -87,5 +87,5 @@ jobs:
             payment_passed=true
           else
             echo "Get Payments API test passed"
-            payment_passed=true
+            payment_passed=false
           fi
