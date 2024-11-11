@@ -1,6 +1,5 @@
 name: API Test Workflow
 
-
 on:
   push:
     branches:
@@ -26,66 +25,36 @@ jobs:
         run: npm install
         working-directory: PART-3/backend
 
+      # Run individual API tests and store output
       - name: Run Login API Test
+        id: login_test
         run: node PART-3/backend/test/testLogin.js
 
       - name: Run Create Payment API Test
+        id: create_payment_test
         run: node PART-3/backend/test/testCreatePayment.js
 
-      - name: Run Get Payments API Test
+      - name: Run My Payments API Test
+        id: my_payments_test
         run: node PART-3/backend/test/testMyPayments.js
 
-      - name: Run Get Payments API Test
+      - name: Run All Payments API Test
+        id: all_payments_test
         run: node PART-3/backend/test/testAllPayments.js
 
-       #login API test and check result
+      # Check if each test passed based on exit code
       - name: Check Login API Test Result
-        run: |
-          login_output="true"
-          echo "Login API Test Output: $login_output"
-          if [[ "$login_output" == "true" ]]; then
-            echo "Login API test passed"
-            login_passed=true
-          else
-            echo "Login API test failed"
-            login_passed=false
-          fi
+        if: steps.login_test.outcome == 'success'
+        run: echo "Login API test passed successfully"
 
-      #createPayment API test and check result
       - name: Check Create Payment API Test Result
-        run: |
-          payment_output="true"
-          echo "Create Payment API Test Output: $payment_output"
-          if [[ "$payment_output" == "true" ]]; then
-            echo "Create Payment API test passed"
-            payment_passed=true
-          else
-            echo "Create Payment API test failed"
-            payment_passed=false
-          fi
+        if: steps.create_payment_test.outcome == 'success'
+        run: echo "Create Payment API test passed successfully"
 
-      #myPayments API test and check result
-      - name: Check Get Payments API Test Result
-        run: |
-          payment_output="true"
-          echo "Get Payment API Test Output: $payment_output"
-          if [[ "$payment_output" == "true" ]]; then
-            echo "Get Payments API test passed"
-            payment_passed=true
-          else
-            echo "Get Payments API test passed"
-            payment_passed=false
-          fi
+      - name: Check My Payments API Test Result
+        if: steps.my_payments_test.outcome == 'success'
+        run: echo "My Payments API test passed successfully"
 
-      #allPayments API test and check result
-      - name: Check Get All Payments API Test Result
-        run: |
-          payment_output="true"
-          echo "Get All Payments API Test Output: $payment_output"
-          if [[ "$payment_output" == "true" ]]; then
-            echo "Get Payments API test passed"
-            payment_passed=true
-          else
-            echo "Get Payments API test passed"
-            payment_passed=false
-          fi
+      - name: Check All Payments API Test Result
+        if: steps.all_payments_test.outcome == 'success'
+        run: echo "All Payments API test passed successfully"
