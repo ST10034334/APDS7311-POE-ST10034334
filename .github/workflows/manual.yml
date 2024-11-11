@@ -35,6 +35,9 @@ jobs:
       - name: Run Get Payments API Test
         run: node PART-3/backend/test/testMyPayments.js
 
+      - name: Run Get Payments API Test
+        run: node PART-3/backend/test/testAllPayments.js
+
        #login API test and check result
       - name: Check Login API Test Result
         run: |
