@@ -22,9 +22,13 @@
 
 ## Project Description
 
-Our site, RenBank, is an international Bank System that allows users to sign up and have the ability to manage their online payments with other users. RenBank allows you to send your chosen amount to various currencies around the world to any bank provider. With our bank management, users now have ease-of-use when sending to companions without any hassel. <br><br>
-Our goal when creating the site was to be able to have internal international payment system, and the ability for user registration and login to making and verifying international
-payments.  <br><br>
+RenBank is an international banking platform designed to provide seamless and secure online payment management. Our system enables users to sign up, manage their payments, and send funds to various bank providers across the globe. Whether you are sending money to friends, family, or business partners, RenBank ensures a smooth and hassle-free transaction experience.
+
+With our user-friendly platform, you can easily select the amount and currency of your choice, and send it to any international bank provider. We have designed RenBank to streamline the process of international payments, providing a reliable and efficient solution for global money transfers.
+
+## Our Mission
+
+The primary goal behind the development of RenBank was to create a secure and reliable internal international payment system that not only simplifies global transactions but also allows for seamless user registration and login. By implementing an intuitive interface for making and verifying international payments, we aim to make cross-border transactions easier and more accessible to everyone.
 
 
 ## Built With
