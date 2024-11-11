@@ -6,13 +6,13 @@ async function testCreatePayment() {
     // Sending a POST request with hardcoded payment data to the /createPayment endpoint
     const response = await axios.post('https://renbank-api.oa.r.appspot.com/pay/CreatePayment/', {
       amount: 1000.00,
-      currency: 'USD',
+      currency: 'US Dollar (USD)',
       provider: 'Bank of America',
       recipient_name: 'Alice Johnson',
       recipient_account_number: '987654321',
       recipient_bank_name: 'Bank of America',
-      recipient_bank_branch_code: '123456',
-      swift_code: 'BOFAUS3NXXX',
+      recipient_bank_branch_code: '789456',
+      swift_code: 'BOFAUS3N',
       verified: false,
       submit_swift: false
     }, {
