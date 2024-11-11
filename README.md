@@ -59,55 +59,86 @@ To install the project, follow these steps:
 
 # How to Use Renbank
 
-Main Screen: Loading into the RenBank site, users are greeted with the main screen, here new users can browse the features we provide, and once done can make their own account while existing users can log in.<br><br>
-![Screenshot 2024-10-08 154959](https://github.com/user-attachments/assets/18d9a5b7-66dd-4ad6-ab9a-f8c469967ae9)
+# RenBank User Guide
 
-# Customer Workflow:
+## Main Screen
+Upon loading into the RenBank site, users are greeted with the main screen. Here, new users can browse the features we provide. Once they’re done, they can create their own account, while existing users can log in.
 
-Register Screen: By clicking on the "Get Started" Button from the Main screen, users are navigated to the Register screen. On this screen users will need to enter their Credentials, including their ID Number and Account Number and a Password of their choice, once completed they can create their account via Save button. <br><br>
-![Screenshot 2024-10-08 155016](https://github.com/user-attachments/assets/0ba6f946-815f-4370-86ef-7c9e355741df)
+![Main Screen](https://github.com/user-attachments/assets/18d9a5b7-66dd-4ad6-ab9a-f8c469967ae9)
 
-Login Screen: This is the Login Screen where users must enter their Full Name, Account Number and their created Password, once completed they will be allowed to access their account.<br><br>
-![Screenshot 2024-10-08 155029](https://github.com/user-attachments/assets/182877d7-4a73-4776-9020-e2a49bd9df75)
+---
 
-Main Screen (Logged In): Now that the customer, "Anne" has logged in, she is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: International Pay and My Payments. Customers also have the option to return to the Main Screen or Log Out of the account.<br><br>
-![Screenshot 2024-10-08 155105](https://github.com/user-attachments/assets/30458e25-a81c-474e-b14e-fee72f99a695)
+## Customer Workflow
 
-International Pay Screen: Once the customer chooses International Pay, they are navigated to the screen where they can choose their custom amount,  what provider to send through and their chosen currencey to add. Once they are filled in, click continue and now a details form will display where the customer must now enter a Recipent's Name, Account Number, Bank Name, Branch Code, and lastly the Swift Code. <br><br>
-![Screenshot 2024-10-08 155117](https://github.com/user-attachments/assets/160862c9-99ce-4c70-af29-988d1e4482e1) <br><br>
-![Screenshot 2024-10-08 155138](https://github.com/user-attachments/assets/91522e66-16ea-4bb3-bff6-ddff370a8218) <br><br>
-![Screenshot 2024-10-08 155159](https://github.com/user-attachments/assets/149c9816-837e-4d84-b4bb-3f833892924a) <br><br>
+### Register Screen
+By clicking the **"Get Started"** button from the Main screen, users are navigated to the Register screen. On this screen, users need to enter their credentials, including their **ID Number**, **Account Number**, and a **Password** of their choice. Once completed, they can create their account by clicking the **Save** button.
 
-My Payment Screen: Once everything is finalised, the customer is directed to the My Payment Screen where they can view their existing and recently made Payments.<br>
-![Screenshot 2024-10-08 155225](https://github.com/user-attachments/assets/1bb58a41-2021-4a89-b7f9-c254ab95cee3)
+![Register Screen](https://github.com/user-attachments/assets/0ba6f946-815f-4370-86ef-7c9e355741df)
 
-# Employee Workflow:
+### Login Screen
+This is the Login Screen where users must enter their **Full Name**, **Account Number**, and their created **Password**. Once completed, they can access their account.
 
-Employees use static login and are pre-registered onto the system, but are still required to login through the Login Screen.
+![Login Screen](https://github.com/user-attachments/assets/182877d7-4a73-4776-9020-e2a49bd9df75)
 
-Main Screen (Logged In): Now that the employee, "Matthew" has logged in, he is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: Payments Portal. Employees also have the option to return to the Main Screen or Log Out of the account.<br><br>
-![Screenshot 2024-11-10 210854](https://github.com/user-attachments/assets/c5117b2f-e6b8-4046-bd08-577edf993329)
+### Main Screen (Logged In)
+After logging in, the customer, **"Anne"**, is greeted with a welcome message and can freely browse the main features presented on the navigation bar: **International Pay** and **My Payments**. Customers also have the option to return to the Main Screen or log out.
 
-Payments Portal Screen: Once the employee chooses Payments Portal, they are navigated to the screen where they can view all international payments created by various customers. There are filters Each payment has the ability to be verified after the employee has checked the payee account information and SWIFT code, by simply clicking the "Verify" button. Once the payment has been verified, they can now submit this payment to SWIFT by simply clicking the "Submit to SWIFT" button.  <br><br>
+![Logged In Main Screen](https://github.com/user-attachments/assets/30458e25-a81c-474e-b14e-fee72f99a695)
 
-![Screenshot 2024-11-10 205845](https://github.com/user-attachments/assets/8e0022fb-c47e-46dc-bdc2-5d3291007a16)
-![Screenshot 2024-11-10 205857](https://github.com/user-attachments/assets/9fc116ce-9af7-42b7-b5f7-e475d03492ef)
-![Screenshot 2024-11-10 205909](https://github.com/user-attachments/assets/4ee667ab-79ac-4a6b-a11e-9ba8990f0696)
-![Screenshot 2024-11-10 205936](https://github.com/user-attachments/assets/93e4cfbb-1e91-464e-b74f-92f9646f74d2)
-![Screenshot 2024-11-10 205947](https://github.com/user-attachments/assets/2bfe69b1-133e-47d1-a204-0978197de000)
-![Screenshot 2024-11-10 210001](https://github.com/user-attachments/assets/134243b3-ef1f-41c0-8e17-39d5e2d4346b)
-![Screenshot 2024-11-10 210012](https://github.com/user-attachments/assets/03981e71-9e81-455d-afea-678c44e14ef5)
-![Screenshot 2024-11-10 210022](https://github.com/user-attachments/assets/d00c1946-bcbb-4567-8760-c8c580f6bd70)
-![Screenshot 2024-11-10 210039](https://github.com/user-attachments/assets/fe7801cd-fea3-491c-8cb6-dffff4025dc1)
-![Screenshot 2024-11-10 210054](https://github.com/user-attachments/assets/2093d0c9-ef60-467c-8f34-1c8ba32766b3)
+### International Pay Screen
+Upon choosing **International Pay**, customers are navigated to the screen where they can select their custom amount, choose a provider, and select the currency. Once filled in, they click **Continue**, and a details form will display. The customer must enter the recipient’s **Name**, **Account Number**, **Bank Name**, **Branch Code**, and **SWIFT Code**.
 
+![International Pay Screen 1](https://github.com/user-attachments/assets/160862c9-99ce-4c70-af29-988d1e4482e1)  
+![International Pay Screen 2](https://github.com/user-attachments/assets/91522e66-16ea-4bb3-bff6-ddff370a8218)  
+![International Pay Screen 3](https://github.com/user-attachments/assets/149c9816-837e-4d84-b4bb-3f833892924a)
 
-# Admin Workflow:
+### My Payment Screen
+Once the payment details are finalized, the customer is directed to the **My Payments** screen where they can view their existing and recently made payments.
 
-Admins use static login and are pre-registered onto the system, but are still required to login through the Login Screen.
+![My Payment Screen](https://github.com/user-attachments/assets/1bb58a41-2021-4a89-b7f9-c254ab95cee3)
 
-Main Screen (Logged In): Now that the admin, "Jamie" has logged in, she is greeted with a welcome messeage and is now free to browse the main fetures presented on the navigation bar: User Management Hub, Payments Portal. Admins also have the option to return to the Main Screen or Log Out of the account.<br>
-<img width="959" alt="image" src="https://github.com/user-attachments/assets/0790c15f-6a2e-4465-adaf-73d11c55f99b">
+---
+
+## Employee Workflow
+
+Employees use static logins and are pre-registered in the system, but they are still required to log in through the Login Screen.
+
+### Main Screen (Logged In)
+After logging in, the employee, **"Matthew"**, is greeted with a welcome message and can browse the main feature: **Payments Portal**. Employees also have the option to return to the Main Screen or log out.
+
+![Employee Main Screen](https://github.com/user-attachments/assets/c5117b2f-e6b8-4046-bd08-577edf993329)
+
+### Payments Portal Screen
+When the employee chooses **Payments Portal**, they are taken to a screen where they can view all international payments made by various customers. Filters at the top allow for selecting **All**, **Unverified Payments**, or **Verified Payments**. Each payment can be verified after checking the payee’s account information and SWIFT code by clicking the **"Verify"** button. Once verified, the payment can be submitted to SWIFT by clicking the **"Submit to SWIFT"** button.
+
+![Payments Portal Screen 1](https://github.com/user-attachments/assets/8e0022fb-c47e-46dc-bdc2-5d3291007a16)  
+![Payments Portal Screen 2](https://github.com/user-attachments/assets/9fc116ce-9af7-42b7-b5f7-e475d03492ef)  
+![Payments Portal Screen 3](https://github.com/user-attachments/assets/4ee667ab-79ac-4a6b-a11e-9ba8990f0696)
+
+---
+
+## Admin Workflow
+
+Admins use static logins and are pre-registered in the system, but they are still required to log in through the Login Screen.
+
+### Main Screen (Logged In)
+After logging in, the admin, **"Jamie"**, is greeted with a welcome message and can browse the main features: **User Management Hub** and **Payments Portal**. Admins also have the option to return to the Main Screen or log out.
+
+![Admin Main Screen](https://github.com/user-attachments/assets/0790c15f-6a2e-4465-adaf-73d11c55f99b)
+
+### Payments Portal Screen
+This screen operates the same way for Admins as it does for Employees.
+
+### User Management Hub Screen
+When the admin selects **User Management Hub**, they are directed to a screen where they can view all RenBank users. Filters at the top allow for selecting **All**, **Admin**, **Employee**, or **Customer**. In this hub, admins can create new users (by clicking **+ New User**), update existing users (by clicking **Update**), and delete user accounts (by clicking **Delete**).
+
+![User Management Hub 1](https://github.com/user-attachments/assets/93e4cfbb-1e91-464e-b74f-92f9646f74d2)  
+![User Management Hub 2](https://github.com/user-attachments/assets/2bfe69b1-133e-47d1-a204-0978197de000)  
+![User Management Hub 3](https://github.com/user-attachments/assets/134243b3-ef1f-41c0-8e17-39d5e2d4346b)  
+![User Management Hub 4](https://github.com/user-attachments/assets/03981e71-9e81-455d-afea-678c44e14ef5)  
+![User Management Hub 5](https://github.com/user-attachments/assets/d00c1946-bcbb-4567-8760-c8c580f6bd70)  
+![User Management Hub 6](https://github.com/user-attachments/assets/fe7801cd-fea3-491c-8cb6-dffff4025dc1)  
+![User Management Hub 7](https://github.com/user-attachments/assets/2093d0c9-ef60-467c-8f34-1c8ba32766b3)
 
 
 
