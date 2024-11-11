@@ -6,7 +6,7 @@ async function testAllPayments() {
     // Sending a GET request to the pay/ endpoint
     const response = await axios.get('https://renbank-api.oa.r.appspot.com/pay/', {
       headers: {
-        Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZThmNmNhZTg2MDdhOWIyMjUyMmViIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzMxMzIwNzc0LCJleHAiOjE3MzEzMjQzNzR9.VTYlkNSQK-G2aWNyQX-aEpmzfe4pjO6ZIANSmS4RIgQ' 
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZThmNmNhZTg2MDdhOWIyMjUyMmViIiwicm9sZSI6IkVtcGxveWVlIiwiaWF0IjoxNzMxMzI3NjI1LCJleHAiOjE3MzEzMzEyMjV9.uITOAQpde1yC4_iPty17y35hd_DAeswtiXtOekLJLyM' 
       }
     });
 
