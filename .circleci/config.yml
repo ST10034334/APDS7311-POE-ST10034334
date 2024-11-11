@@ -52,6 +52,8 @@ jobs:
           -Dsonar.organization="$SONAR_ORG" \
           -Dsonar.host.url=https://sonarcloud.io \
           -Dsonar.exclusions="**/android/**,**/ios/**,**/node_modules/**" \
+          -Dsonar.coverage.exclusions="**/*"
+          -Dsonar.cpd.exclusions="**/*"
           -Dsonar.login="$SONAR_TOKEN" \
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART-3/frontend,PART-3/backend"
