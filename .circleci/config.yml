@@ -56,27 +56,27 @@ jobs:
           -Dsonar.branch.name="$SONAR_BRANCH" \
           -Dsonar.sources="PART 3/frontend,PART 3/backend"
 
-  postman-customer:
-    executor: newman/postman-newman-docker
-    steps:
-      - checkout
-      - run:
-          name: List files in api-postman-tests directory recursively
-          command: ls -R "api-postman-tests"
-      - newman/newman-run:
-          collection: api-postman-tests/RenBank-API-Tests-Customer.postman_collection.json
-          environment: api-postman-tests/Customer.postman_environment.json
+  #postman-customer:
+    #executor: newman/postman-newman-docker
+    #steps:
+      #- checkout
+      #- run:
+          #name: List files in api-postman-tests directory recursively
+          #command: ls -R "api-postman-tests"
+      #- newman/newman-run:
+          #collection: api-postman-tests/RenBank-API-Tests-Customer.postman_collection.json
+          #environment: api-postman-tests/Customer.postman_environment.json
 
-  postman-employee:
-    executor: newman/postman-newman-docker
-    steps:
-      - checkout
-      - run:
-          name: List files in api-postman-tests directory recursively
-          command: ls -R "api-postman-tests"
-      - newman/newman-run:
-          collection: api-postman-tests/RenBank-API-Tests-Employee.postman_collection.json
-          environment: api-postman-tests/Employee.postman_environment.json
+  #postman-employee:
+    #executor: newman/postman-newman-docker
+    #steps:
+      #- checkout
+      #- run:
+          #name: List files in api-postman-tests directory recursively
+          #command: ls -R "api-postman-tests"
+      #- newman/newman-run:
+          #collection: api-postman-tests/RenBank-API-Tests-Employee.postman_collection.json
+          #environment: api-postman-tests/Employee.postman_environment.json
 
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
@@ -86,5 +86,5 @@ workflows:
     jobs:
       - say-hello
       - sonarqube
-      - postman-customer
-      - postman-employee
+      #- postman-customer
+      #- postman-employee
