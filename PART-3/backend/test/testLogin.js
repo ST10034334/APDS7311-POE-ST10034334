@@ -1,5 +1,5 @@
 const axios = require('axios');
-const dotenv = require("dotenv");
+const dotenv = require("../dotenv");
 
 //Loads environment variables from .env file.
 dotenv.config();
