@@ -6,6 +6,7 @@ import auth from "./routes/auth.mjs";
 import pay from "./routes/pay.mjs";
 import user from "./routes/user.mjs";
 import cors from "cors";
+import rateLimit from "express-rate-limit"
 
 console.log("Server Up and Running!");
 
@@ -20,6 +21,15 @@ app.use(cors());
 
 //Uses Express JSON middleware to parse JSON request bodies.
 app.use(express.json());
+
+
+const limiter = rateLimit({
+   windowMs: 15 * 60 * 1000, //15 minutes.
+   max: 1000, //Limit each IP to 100 requests per WindowsMs.
+   message: "Too many requests from this IP, please try again later."
+});
+
+app.use(limiter);
 
 
 //Middleware to set custom CORS headers for all responses.
