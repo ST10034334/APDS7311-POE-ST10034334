@@ -40,7 +40,7 @@ The primary goal behind the development of RenBank was to create a secure and re
 
 ## Architypes
 
-<img width="379" alt="image" src="https://github.com/user-attachments/assets/2a5a9ea5-da78-4505-af89-95344d551962">
+<img width="500" height="300" alt="image" src="https://github.com/user-attachments/assets/2a5a9ea5-da78-4505-af89-95344d551962">
 
 
 ## Getting Started
