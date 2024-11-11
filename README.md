@@ -32,8 +32,8 @@ The primary goal behind the development of RenBank was to create a secure and re
 
 
 ## Built With
-- **Programming Language**: Python + Javascript
-- **Framework**: Django + Express
+- **Programming Language**: Javascript, HTML, CSS
+- **Framework**: Express
 - **Database**: MongoDB
 - **Hosting**: Google Cloud
 - **Version Control**: Git
