@@ -16,11 +16,12 @@ async function testCreatePayment() {
       verified: true
     }, {
       headers: {
-        Authorization: 'Bearer your_mocked_token' 
+        Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNjZmZDkxN2U4OWIyM2E3OWFkYThhMjcxIiwicm9sZSI6IkN1c3RvbWVyIiwiaWF0IjoxNzMxMzI3NzYxLCJleHAiOjE3MzEzMzEzNjF9.jRuMT5JjhPlLlZHsSGxH7ZtzLWiU7q_l59jL7EoILH4' 
       }
     });
 
     console.log(true);
+    process.exit(0)
     
   } catch (error) {
     if (error.response) {
@@ -32,6 +33,7 @@ async function testCreatePayment() {
 
     // Output false for any errors
     console.log(false);
+    process.exit(1)
   }
 }
 
